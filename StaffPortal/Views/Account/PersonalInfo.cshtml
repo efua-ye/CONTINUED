@@ -1,0 +1,103 @@
+﻿
+@model StaffPortal.Entities.ApplicationUser
+@{
+    ViewData["Title"] = "UserProfile";
+}
+<!-- ============================================================== -->
+
+<script src="~/js/jquery-3.2.1.min.js"></script>
+
+
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">UserProfile</h3>
+    </div>
+    <!--   <div class="col-md-7 align-self-center">
+         <a href="https://wrappixel.com/templates/adminpro/" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Upgrade to Pro</a>
+      </div>-->
+</div>
+
+<div class="row">
+    <!-- column -->
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3>UserProfile</h3>
+            <div class="table-responsive">
+                <form asp-action="PersonalInfo" method="post" class="mt-4">
+                    <div class="form-group">
+                        <label asp-for="FirstName"> FirstName</label>
+                        <input type="text" asp-for="FirstName" class="form-control" placeholder="Enter FirstName" required="">
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName"> LastName</label>
+                        <input type="text" asp-for="LastName" class="form-control" placeholder="Enter LastName" required="">
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Country">Country</label>
+                        <select asp-for="Country" class="form-control">
+                            <option value="Nigeria">Nigeria</option>
+                        </select>
+
+                        <span asp-validation-for="Country" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="NewStateId"> State</label>
+                        <select asp-for="NewStateId" class="form-control" id="NewStatesId"
+                                asp-items="@(new SelectList(ViewBag.state, "Id", "Name"))">
+                            <option>Select State Name</option>
+                        </select>
+                        <span asp-validation-for="NewStateId" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="LGAId"> Local Government</label>
+                        <select class="form-control" id="LGAId" asp-for="LGAId" asp-items="@(new SelectList(string.Empty, "Id", "Name"))">
+                            
+                        </select>
+                        <span asp-validation-for="LGAId" class="text-danger"></span>
+                    </div>
+
+
+
+
+
+                    <button type="submit" class="btn btn-success mr-2">Submit</button>
+                    <a asp-action="Cancel" type="button" class="btn btn-dark">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/jquery-3.2.1.min.js"></script>
+
+
+<script>
+    $(function () {
+        $("#NewStatesId").change(function () {
+            var url = '@Url.Content("~/")' + "Account/GetLGA";
+            var ddlsource = "#NewStatesId";
+            $.getJSON(url, { id: $(ddlsource).val() }, function (data) {
+                var items = '';
+                $("#LGAId").empty();
+                $.each(data, function (i, row) {
+                    items += "<option value='" + row.value + "'>" + row.text + "</option>";
+                });
+                $("#LGAId").html(items);
+            })
+    //    });
+    //});
+
+            });
+    }).change();
+
+
+</script>
+

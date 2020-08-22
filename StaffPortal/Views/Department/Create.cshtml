@@ -1,0 +1,43 @@
+﻿@model StaffPortal.Entities.Department
+@{
+    ViewData["Title"] = "Department";
+}
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Department</h3>
+    </div>
+    <!--   <div class="col-md-7 align-self-center">
+         <a href="https://wrappixel.com/templates/adminpro/" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Upgrade to Pro</a>
+      </div>-->
+</div>
+
+<div class="row">
+    <!-- column -->
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3>Department</h3>
+            <div class="table-responsive">
+
+                <form method="post" asp-action="Create" class="mt-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="placeholder"
+                               placeholder="Enter Department Name" asp-for="DeptName" required="" >
+                    </div><br />
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="placeholder"
+                               placeholder="Enter Department Code" asp-for="DeptCode" required="">
+                    </div><br />
+                    <div class="form-group mb-4">
+                        <label for="exampleFormControlSelect1">Faculty</label>
+                        <select class="form-control" id="exampleFormControlSelect1" asp-for="FacultyId" asp-items="@ViewBag.fac">
+                            <option>Choose Option</option>
+                        </select>
+                    </div><br />
+                    <button type="submit" class="btn btn-rounded btn-outline-success">Submit</button>
+                    <a asp-action="Cancel" type="button" class="btn btn-rounded btn-outline-danger">Cancel</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

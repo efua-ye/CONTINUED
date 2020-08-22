@@ -1,0 +1,154 @@
+﻿
+@model StaffPortal.Entities.UserProfile
+@{
+    ViewData["Title"] = "EmployeeProfile";
+}
+<!-- ============================================================== -->
+
+<script src="~/js/jquery-3.2.1.min.js"></script>
+
+
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">EmployeeProfile</h3>
+    </div>
+    <!--   <div class="col-md-7 align-self-center">
+         <a href="https://wrappixel.com/templates/adminpro/" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Upgrade to Pro</a>
+      </div>-->
+</div>
+
+<div class="row">
+    <!-- column -->
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3>UserProfile</h3>
+            <div class="table-responsive">
+                
+                <form asp-action="Edit" method="post" class="mt-4">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Email"> Employee</label>
+                        <input type="text" asp-for="Email" class="form-control" readonly>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="GradeName"> State</label>
+                        <select asp-for="GradeName" class="form-control" id="GradeNames" asp-items="@(new SelectList(ViewBag.grade, "GradeName", "GradeName"))">
+                            <option hidden disabled selected>Select a Grade Name</option>
+                        </select>
+                        <!--  <span asp-validation-for="NewStates" class="text-danger"></span> -->
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="GradeLevel"> Level</label>
+                        <select class="form-control" id="GradeLevels" asp-for="GradeLevel" asp-items="@(new SelectList(string.Empty, "id", "Level"))">
+                            <option hidden disabled selected> Please Select a Grade Name</option>
+                        </select>
+                        <!--     <span asp-validation-for="LGAs" class="text-danger"></span> -->
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="GradeStep"> Step</label>
+                        <select class="form-control" id="GradeSteps" asp-for="GradeStep" asp-items="@(new SelectList(string.Empty, "Id", "Step"))">
+                            <option hidden disabled selected> Please Select a Grade Level</option>
+                        </select>
+                        
+                        <!--     <span asp-validation-for="LGAs" class="text-danger"></span> -->
+                    </div>
+
+                    @*
+            <div class="form-group">
+                <label asp-for="GradeName"> State</label>
+                <select asp-for="GradeName" class="form-control" id="GradeNames" asp-items="@(new SelectList(ViewBag.grade, "GradeName", "GradeName"))">
+                    <option>Select Grade</option>
+                </select>
+                <!--  <span asp-validation-for="NewStates" class="text-danger"></span> -->
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="GradeId"> Level</label>
+                <select class="form-control" id="GradeLevel" asp-for="GradeId" asp-items="@(new SelectList(string.Empty, "Id", "Level"))"></select>
+                <!--     <span asp-validation-for="LGAs" class="text-danger"></span> -->
+            </div>
+
+            <div class="form-group">
+                <label asp-for="GradeId"> Step</label>
+                <select class="form-control" id="GradeStep" asp-for="GradeId" asp-items="@(new SelectList(string.Empty, "Id", "Level"))"></select>
+                <!--     <span asp-validation-for="LGAs" class="text-danger"></span> -->
+            </div>
+
+                    *@
+
+                    <div class="form-group">
+                        <label asp-for="DepartmentId">Department</label>
+                        <select class="form-control" asp-for="DepartmentId" asp-items="@ViewBag.department">
+                            <option hidden disabled selected>Choose Department</option>
+                        </select>
+                        <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                    </div>
+
+
+
+
+                    <button type="submit" class="btn btn-success mr-2">Submit</button>
+                    <a asp-action="Cancel" type="button" class="btn btn-dark">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/js/jquery-3.2.1.min.js"></script>
+<!-- <script src="~/Login/vendor/jquery/jquery-3.2.1.min.js"></script> -->
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#GradeNames").change(function () {
+            var url = '@Url.Content("~/")' + "UserProfile/GetLevel";
+            var ddlsource = "#GradeNames";
+
+            $.getJSON(url, { gradename: $(ddlsource).val() }, function (data) {
+                var items = '';
+                $("#GradeLevels").empty();
+                items = "<option hidden disabled selected >-- Select a Level --</option>";
+                
+                $.each(data, function (i, row) {
+                    items += "<option value='" + row.value + "'>" + row.text + "</option>";
+                });
+                $("#GradeLevels").html(items);
+            });
+
+
+            });
+
+        $("#GradeLevels").change(function () {
+            var url = '@Url.Content("~/")' + "UserProfile/GetStep";
+            var ddlsource = "#GradeLevels";
+            $.getJSON(url, { gradelevelid: $(ddlsource).val() }, function (data) {
+                var items = '';
+                $("#GradeSteps").empty();
+                items = "<option hidden disabled selected >-- Select a Step --</option>";
+                $.each(data, function (i, row) {
+                    items += "<option value='" + row.value + "'>" + row.text + "</option>";
+                });
+                $("#GradeSteps").html(items);
+            });
+
+            });
+
+
+
+
+
+    });
+
+
+</script>
+
+

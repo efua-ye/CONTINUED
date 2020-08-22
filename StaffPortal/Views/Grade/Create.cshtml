@@ -1,0 +1,80 @@
+﻿@model StaffPortal.Entities.Grade
+@{
+    ViewData["Title"] = "Edit Grade";
+}
+<!-- ============================================================== -->
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Grades</h3>
+    </div>
+    <!--   <div class="col-md-7 align-self-center">
+         <a href="https://wrappixel.com/templates/adminpro/" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Upgrade to Pro</a>
+      </div>-->
+</div>
+
+<div class="row">
+    <!-- column -->
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <form asp-action="Create" method="post" class="mt-4">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="GradeName">Name</label>
+                            <input type="text" asp-for="GradeName" class="form-control" placeholder="Enter Grade Name" required="">
+                            <span asp-validation-for="GradeName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Level">Level</label>
+                            <input type="text" asp-for="Level" class="form-control" id="name" placeholder="Enter Level" required="">
+                            <span asp-validation-for="Level" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Step">Step</label>
+                            <input type="text" asp-for="Step" class="form-control" id="name" placeholder="Enter Step" required="">
+                            <span asp-validation-for="Step" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="BasicSalary">Basic Salary</label>
+                            <input type="text" asp-for="BasicSalary" class="form-control" id="name" placeholder="Enter Basic Salary" required="">
+                            <span asp-validation-for="BasicSalary" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TaxPercent">Tax</label>
+                            <input type="text" asp-for="TaxPercent" class="form-control" id="name" placeholder="Enter Tax Percent" required="">
+                            <span asp-validation-for="TaxPercent" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LunchPercent"> Lunch</label>
+                            <input type="text" asp-for="LunchPercent" class="form-control" id="name" placeholder="Enter Lunch Percent" required="">
+                            <span asp-validation-for="LunchPercent" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TransportPercent">Transport</label>
+                            <input type="text" asp-for="TransportPercent" class="form-control" id="name" placeholder="Enter Transport Percent" required="">
+                            <span asp-validation-for="TransportPercent" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MedicalPercent">Medical</label>
+                            <input type="text" asp-for="MedicalPercent" class="form-control" id="name" placeholder="Enter Medical Percent" required="">
+                            <span asp-validation-for="MedicalPercent" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="HousingPercent">Housing</label>
+                            <input type="text" asp-for="HousingPercent" class="form-control" id="name" placeholder="Enter Housing Percent" required="">
+                            <span asp-validation-for="HousingPercent" class="text-danger"></span>
+                        </div>
+                        @*  <div class="form-group ">
+            <input type="text" asp-for="TaxPercent" class="form-control " id="name" placeholder="Enter TaxPercent" required="">
+            <span asp-validation-for="TaxPercent" class="text-danger"></span>
+        </div> *@
+                        <button type="submit" class="btn btn-success mr-2">Submit</button>
+                        <a asp-action="Cancel" class="btn btn-dark">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

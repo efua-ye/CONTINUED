@@ -1,0 +1,96 @@
+﻿@model IEnumerable<StaffPortal.Entities.UserProfile>
+@{
+    ViewData["Title"] = "UserProfile";
+}
+
+<div class="row bg-title">
+    <div class="col-lg-12">
+        <h4 class="page-title">Employee Profile</h4>
+        <ol class="breadcrumb">
+            <li><a href="#">Dashboard</a></li>
+            <li class="active">Employee Profile</li>
+        </ol>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+
+        <div class="white-box">
+
+            <a asp-controller="UserProfile" asp-action="Create" class="btn float-right hidden-sm-down btn-success"><i class="mdi mdi-plus-circle"></i>New Employee Profile</a>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Email</th>
+                            <th>Country</th>
+                            <th>State</th>
+                            <th>LGA</th>
+                            <th>Department</th>
+                            <th>Faculty</th>
+                            <th>Grade</th>
+                            <th>Level</th>
+                            <th>Step</th>
+                            <th>Total Earnings</th>
+
+                            <th>Total Deduction</th>
+                            <th>Net Pay</th>
+
+                            <th>Created By</th>
+                            <th>Date Created</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var UserProfile in Model)
+                        {
+                        <tr>
+
+
+
+
+                            <td>@UserProfile.Id</td>
+                            <td>@UserProfile.FirstName  </td>
+                            <td>@UserProfile.LastName </td>
+                            <td>@UserProfile.Email </td>
+                            <td>@UserProfile.Country </td>
+                            <td>@UserProfile.NewStates </td>
+                            <td>@UserProfile.LGAs </td>
+
+                            <td>@UserProfile.Department.DeptName </td>
+                            <td>@UserProfile.FacultyName</td>
+                            <td>@UserProfile.Grade.GradeName</td>
+                            <td>@UserProfile.Grade.Level</td>
+                            <td>@UserProfile.Grade.Step</td>
+                            <td>@UserProfile.Grade.TotAllowance</td>
+                            <td>@UserProfile.Grade.TotDeduction</td>
+                            <td>@UserProfile.Grade.NetSalary</td>
+                            <td>@UserProfile.CreatedBy  </td>
+                            <td>@UserProfile.DateCreated    </td>
+
+                            <td><a asp-action="Edit" asp-route-id="@UserProfile.Id" alt="Edit"><i class="ti-pencil" aria-hidden="true"></i></a> </td>
+
+                            <td><a onclick="return confirm('Are you sure you want to delete this record');" asp-action="Delete" asp-route-id="@UserProfile.Id"><i class="ti-trash" aria-hidden="true"></i></a> </td>
+                            <td>
+                                <a asp-controller="Account" asp-action="PersonalInfo" asp-route-id="@UserProfile.Id" class="btn float-right hidden-sm-down btn-success"><i class="mdi mdi-plus-circle"></i>Edit User Info</a>
+                            </td>
+                            <td>
+                                <a asp-controller="UserProfile" asp-action="SalaryReport" asp-route-id="@UserProfile.Id" class="btn float-right hidden-sm-down btn-success"><i class="mdi mdi-plus-circle"></i>Salary Details</a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

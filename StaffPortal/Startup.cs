@@ -57,7 +57,7 @@ namespace StaffPortal
             services.AddScoped<ILocal, LGAService>();
             services.AddScoped<INews, NewsService>();
 
-            //services.AddScoped<IUserProfile, UserProfileService>();
+            services.AddScoped<ISalary, SalaryService>();
 
             services.AddScoped<IAccount, AccountService>();
             //services.AddScoped<IRole, RoleService>();

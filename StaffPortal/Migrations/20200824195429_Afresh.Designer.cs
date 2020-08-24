@@ -10,8 +10,8 @@ using StaffPortal.Data;
 namespace StaffPortal.Migrations
 {
     [DbContext(typeof(StaffPortalDataContext))]
-    [Migration("20200818225655_ThankGod")]
-    partial class ThankGod
+    [Migration("20200824195429_Afresh")]
+    partial class Afresh
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -346,6 +346,29 @@ namespace StaffPortal.Migrations
                     b.ToTable("NewStates");
                 });
 
+            modelBuilder.Entity("StaffPortal.Entities.Salary", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("Month");
+
+                    b.Property<int>("UserProfileId");
+
+                    b.Property<string>("Year");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserProfileId");
+
+                    b.ToTable("Salaries");
+                });
+
             modelBuilder.Entity("StaffPortal.Entities.UserProfile", b =>
                 {
                     b.Property<int>("Id")
@@ -490,6 +513,14 @@ namespace StaffPortal.Migrations
                     b.HasOne("StaffPortal.Entities.NewState", "NewState")
                         .WithMany("LGA")
                         .HasForeignKey("NewStateId");
+                });
+
+            modelBuilder.Entity("StaffPortal.Entities.Salary", b =>
+                {
+                    b.HasOne("StaffPortal.Entities.UserProfile", "UserProfile")
+                        .WithMany()
+                        .HasForeignKey("UserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("StaffPortal.Entities.UserProfile", b =>

@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using StaffPortal.Entities;
+
+namespace StaffPortal.Interface
+{
+    public interface IUserProfile
+    {
+        void Add(UserProfile userprofile);
+        Task<bool> AddAsync(UserProfile userprofile);
+		
+		
+        Task<bool> Update(UserProfile userprofile, Grade grade);
+        Task<bool> UpdateUser(UserProfile userprofile);
+        Task<bool> UpdateGrade(Grade grade);
+
+		
+        Task<IEnumerable<UserProfile>> GetAll();
+		
+		
+		Task<UserProfile> GetById(int Id);
+        Task<Grade> FindGradeById(int id);  //Finding the name of the grade
+		int GetIdByEmail(string email);   //Finding the user using email 
+        string FindNameByDepartmentId(int id);   //Finding the name of the department
+        string FindFacultyNameByDepartmentId(int id); //Finding the name of the faculty
+		
+		
+        Task<bool> Delete(int Id);
+    }
+}

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StaffPortal.Migrations
 {
-    public partial class ThankGod : Migration
+    public partial class Afresh : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -259,6 +259,29 @@ namespace StaffPortal.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Salaries",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Month = table.Column<string>(nullable: true),
+                    Year = table.Column<string>(nullable: true),
+                    UserProfileId = table.Column<int>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Salaries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Salaries_UserProfiles_UserProfileId",
+                        column: x => x.UserProfileId,
+                        principalTable: "UserProfiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -417,6 +440,11 @@ namespace StaffPortal.Migrations
                 column: "NewStateId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Salaries_UserProfileId",
+                table: "Salaries",
+                column: "UserProfileId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserProfiles_DepartmentId",
                 table: "UserProfiles",
                 column: "DepartmentId");
@@ -448,7 +476,7 @@ namespace StaffPortal.Migrations
                 name: "NewsRoom");
 
             migrationBuilder.DropTable(
-                name: "UserProfiles");
+                name: "Salaries");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -457,19 +485,22 @@ namespace StaffPortal.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "UserProfiles");
+
+            migrationBuilder.DropTable(
+                name: "LGAs");
+
+            migrationBuilder.DropTable(
                 name: "Departments");
 
             migrationBuilder.DropTable(
                 name: "Grades");
 
             migrationBuilder.DropTable(
-                name: "LGAs");
+                name: "NewStates");
 
             migrationBuilder.DropTable(
                 name: "Faculties");
-
-            migrationBuilder.DropTable(
-                name: "NewStates");
         }
     }
 }

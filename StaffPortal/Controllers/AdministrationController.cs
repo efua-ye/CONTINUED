@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace StaffPortal.Controllers
 {
-    [Authorize(Roles = "Admin")]
+   // [Authorize(Roles = "Admin")]
 
     public class AdministrationController : Controller
     {

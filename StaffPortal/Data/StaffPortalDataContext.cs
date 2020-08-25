@@ -30,7 +30,7 @@ namespace StaffPortal.Data
        
         public virtual DbSet<UserProfile> UserProfiles { get; set; }
 
-        //public virtual DbSet<Salary> Salaries { get; set; }
+        public virtual DbSet<Salary> Salaries { get; set; }
 
         public virtual DbSet<NewState> NewStates { get; set; }
         public virtual DbSet<LGA> LGAs { get; set; }

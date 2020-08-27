@@ -28,6 +28,8 @@
                     </div><br />
                     <div class="form-group">
                         <select class="form-control" asp-for="@Model.Month">
+                            <option value="">--</option>
+                            <option value="January">January</option>
                             <option value="January">January</option>
                             <option value="February">February</option>
                             <option value="March">March</option>
@@ -47,6 +49,12 @@
                         <input type="text" asp-for="Year" class="form-control" placeholder="Enter Salary Name" required="">
                         <span asp-validation-for="Year" class="text-danger"></span>
                     </div>
+
+                    <div class="form-group">
+            <label asp-for="TransportPercent_">Transport</label>
+            <input type="text" asp-for="TransportPercent_" class="form-control" id="name" placeholder="Enter Addtional Transport" required="">
+            <span asp-validation-for="TransportPercent_" class="text-danger"></span>
+        </div>
                     @*<div class="form-group">
             <label asp-for="Code">Code</label>
             <input type="text" asp-for="Code" class="form-control" id="name" placeholder="Enter Salary Code" required="">

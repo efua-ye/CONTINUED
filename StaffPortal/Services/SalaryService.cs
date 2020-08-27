@@ -18,9 +18,16 @@ namespace StaffPortal.Services
 
         public void Add(Salary salary) //Add
         {
-            _context.Add(salary);
+            if (salary.Equals(_context))
+            {
 
-            _context.SaveChanges();
+                Console.WriteLine("ERRRORRRR!!!!!!!!!!");            }
+            else
+            {
+                _context.Add(salary);
+                _context.SaveChanges();
+            }
+           
         }
         public async Task<bool> AddAsync(Salary salary) //AddAsync
         {

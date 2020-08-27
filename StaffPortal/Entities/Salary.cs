@@ -24,5 +24,12 @@ namespace StaffPortal.Entities
             set { dateCreated = value; }
 
         }
+
+        public double TransportPercent_ { get; set; }
+        public double Transport  { get; set; }
+        public double Allowance { get; set; }
+       // public double  { get; set; }
+
+
     }
 }

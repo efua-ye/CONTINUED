@@ -1,6 +1,7 @@
-﻿
+﻿@using StaffPortal.Entities
+
 @model StaffPortal.Models.SalaryMonthViewModel
-@*@model IEnumerable<StaffPortal.Entities.Salary>*@
+@*    @model IEnumerable<StaffPortal.Entities.Salary>*@
 @{
     ViewBag.Title = "Index";
 }
@@ -34,7 +35,9 @@
                         Year: <select asp-for="SalaryYear" asp-items="Model.Years">
                             <option value="">All</option>
                         </select>
-
+                        GradeName: <select asp-for="SalaryGradeName" asp-items="Model.Gradenames">
+                            <option value="">All</option>
+                        </select>
 
                         <br />
                         Word index: <input type="text" name="SearchString">
@@ -50,43 +53,57 @@
                                     @Html.ActionLink("Id", "Index", new { Sorting_Order = ViewBag.SortingId })
                                 </th>
                                 <th>
+                                    @Html.ActionLink("First Name", "Index", new { Sorting_Order = ViewBag.Sortingfirst })
+                                </th>
+                                <th>
+                                    @Html.ActionLink("LastName", "Index", new { Sorting_Order = ViewBag.Sortinglast })
+                                </th>
+                                <th>
+                                    @Html.ActionLink("Email", "Index", new { Sorting_Order = ViewBag.Sortingemail })
+                                </th>
+                                <th>
+                                    @Html.ActionLink("Grade", "Index", new { Sorting_Order = ViewBag.SortingMonth })
+                                </th>
+                                <th>
                                     @Html.ActionLink("Month", "Index", new { Sorting_Order = ViewBag.SortingMonth })
                                 </th>
                                 <th>
                                     @Html.ActionLink("Year", "Index", new { Sorting_Order = ViewBag.SortingYear })
                                 </th>
-                                <th>
-                                    @Html.ActionLink("UserProfile", "Index", new { Sorting_Order = ViewBag.Sortinguser })
-                                </th>
+
                                 <th>
                                     @Html.ActionLink("CreatedBy", "Index", new { Sorting_Order = ViewBag.SortingCreate })
                                 </th>
                                 <th>
                                     @Html.ActionLink("DateCreated", "Index", new { Sorting_Order = ViewBag.SortingDate })
                                 </th>
-                                
+
                             </tr>
-                           
+
                         </thead>
                         <tbody>
 
                             @foreach (var Salary in Model.Sals)
                             {
-                                <tr>
-                                    <td>@Salary.Id</td>
+                            <tr>
+                                <td>@Salary.Id</td>
+                                <td>@Salary.UserProfile.FirstName   </td>
+                                <td>@Salary.UserProfile.LastName   </td>
+                                <td>@Salary.UserProfile.Email   </td>
+                                <td>@Salary.UserProfile.GradeName   </td>
+                                <td>@Salary.Month  </td>
+                                <td>@Salary.Year </td>
 
-                                    <td>@Salary.Month  </td>
-                                    <td>@Salary.Year </td>
+                                <td>@Salary.CreatedBy  </td>
+                                <td>@Salary.DateCreated    </td>
 
-                                    <td>@Salary.CreatedBy  </td>
-                                    <td>@Salary.DateCreated    </td>
 
-                                    <td>
 
-                                    <td><a asp-action="Edit" asp-route-id="@Salary.Id" alt="Edit"><i class="ti-pencil" aria-hidden="true"></i></a> </td>
-                                    <td><a onclick="return confirm('Are you sure you want to delete this record');" asp-action="Delete" asp-route-id="@Salary.Id"><i class="ti-trash" aria-hidden="true"></i></a> </td>
 
-                                </tr>
+                                <td><a asp-action="Edit" asp-route-id="@Salary.Id" alt="Edit"><i class="ti-pencil" aria-hidden="true"></i></a> </td>
+                                <td><a onclick="return confirm('Are you sure you want to delete this record');" asp-action="Delete" asp-route-id="@Salary.Id"><i class="ti-trash" aria-hidden="true"></i></a> </td>
+
+                            </tr>
 
 
                             }
@@ -100,3 +117,24 @@
     </div>
 
 </div>
+
+@*{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
+    *@

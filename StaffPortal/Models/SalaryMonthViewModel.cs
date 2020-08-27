@@ -14,6 +14,9 @@ namespace StaffPortal.Models
 
         public SelectList Years { get; set; }
         public string SalaryYear { get; set; }
+
+        public SelectList Gradenames { get; set; }
+        public string SalaryGradeName { get; set; }
         public string SearchString { get; set; }
         
     }

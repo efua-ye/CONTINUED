@@ -99,14 +99,17 @@ namespace StaffPortal.Controllers
 
 
         //}
-        public async Task<IActionResult> Index(string salaryMonth, string salaryYear, string searchString, string Sorting_Order)
+        public async Task<IActionResult> Index(string salaryMonth, string salaryYear, string searchString, string Sorting_Order, string currentFilter, int? pageNumber)
         {
+            ViewBag.CurrentSort = Sorting_Order;
             ViewBag.SortingMonth = String.IsNullOrEmpty(Sorting_Order) ? "Month_Desc" : "";
             ViewBag.SortingYear = Sorting_Order == "Year" ? "Year_Desc" : "Year";
             ViewBag.SortingDate = Sorting_Order == "Date_created" ? "Date_Desc" : "Date_created";
             ViewBag.SortingCreate = Sorting_Order == "CreatedBy" ? "CreatedBy_Desc" : "CreatedBy";
             ViewBag.SortingId = Sorting_Order == "ID" ? "ID_Desc" : "ID";
-            ViewBag.Sortinguser = Sorting_Order == "UserProfile" ? "UserProfile_Desc" : "UserProfile";
+            ViewBag.Sortingfirst = Sorting_Order == "UserProfile" ? "UserProfile_Desc" : "UserProfile";
+            ViewBag.Sortinglast = Sorting_Order == "UserProfilelast" ? "UserProfile_Desclast" : "UserProfilelast";
+            ViewBag.Sortingemail = Sorting_Order == "UserProfileemail" ? "UserProfile_Descemail" : "UserProfileemail";
 
             IQueryable<string> monthQuery = from m in _context.Salaries
                                             orderby m.Month
@@ -115,6 +118,18 @@ namespace StaffPortal.Controllers
             IQueryable<string> yearQuery = from m in _context.Salaries
                                            orderby m.Year
                                            select m.Year;
+            IQueryable<string> gradeQuery = from m in _context.Salaries
+                                           orderby m.UserProfile.GradeName
+                                           select m.UserProfile.GradeName;
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
             var salaries = from m in _context.Salaries
                            select m;
@@ -133,78 +148,103 @@ namespace StaffPortal.Controllers
             {
                 salaries = salaries.Where(x => x.Year == salaryYear);
             }
-            var salariesList = new List<Salary>();
+            //IQueryable salariesList = new List<Salary>();
+            //IQueryable<T> salariesList;
             switch (Sorting_Order)
             {
                 case "Month_Asc":
                     //students = students.OrderByDescending(stu => stu.FirstName);
-                    salariesList = salaries.OrderBy(sal => sal.Month).ToList();
+                    salaries = salaries.OrderBy(sal => sal.Month);
                     break;
 
                 case "Month_Desc":
-                    salariesList = salaries.OrderByDescending(sal => sal.Month).ToList();
+                    salaries = salaries.OrderByDescending(sal => sal.Month);
                     break;
 
                 case "ID":
 
-                    salariesList = salaries.OrderBy(sal => sal.Id).ToList();
+                    salaries = salaries.OrderBy(sal => sal.Id);
                     break;
 
                 case "ID_Desc":
-                    salariesList = salaries.OrderByDescending(sal => sal.Id).ToList();
+                    salaries = salaries.OrderByDescending(sal => sal.Id);
                     break;
 
                 case "UserProfile":
 
-                    salariesList = salaries.OrderBy(sal => sal.UserProfileId).ToList();
+                    salaries = salaries.OrderBy(sal => sal.UserProfile.FirstName);
                     break;
 
                 case "UserProfile_Desc":
-                    salariesList = salaries.OrderByDescending(sal => sal.UserProfileId).ToList();
+                    salaries = salaries.OrderByDescending(sal => sal.UserProfile.FirstName);
                     break;
 
+                case "UserProfilelast":
+
+                    salaries = salaries.OrderBy(sal => sal.UserProfile.LastName);
+                    break;
+
+                case "UserProfile_Desclast":
+                    salaries = salaries.OrderByDescending(sal => sal.UserProfile.LastName);
+                    break;
+
+                case "UserProfileemail":
+
+                    salaries = salaries.OrderBy(sal => sal.UserProfile.Email);
+                    break;
+
+                case "UserProfile_Descemail":
+                    salaries = salaries.OrderByDescending(sal => sal.UserProfile.Email);
+                    break;
 
                 case "Date_created":
-                    salariesList = salaries.OrderBy(sal => sal.DateCreated).ToList();
+                    salaries = salaries.OrderBy(sal => sal.DateCreated);
                     break;
                 case "Date_Desc":
 
-                    salariesList = salaries.OrderByDescending(sal => sal.DateCreated).ToList();
+                    salaries = salaries.OrderByDescending(sal => sal.DateCreated);
                     break;
 
                 case "CreatedBy":
-                    salariesList = salaries.OrderBy(sal => sal.CreatedBy).ToList();
+                    salaries = salaries.OrderBy(sal => sal.CreatedBy);
                     break;
                 case "CreatedBy_Desc":
 
-                    salariesList = salaries.OrderByDescending(sal => sal.CreatedBy).ToList();
+                    salaries = salaries.OrderByDescending(sal => sal.CreatedBy);
                     break;
 
                 case "Year":
-                    salariesList = salaries.OrderBy(sal => sal.Year).ToList();
+                    salaries = salaries.OrderBy(sal => sal.Year);
                     break;
 
                 case "Year_Description":
-                    salariesList = salaries.OrderByDescending(sal => sal.Year).ToList();
+                    salaries = salaries.OrderByDescending(sal => sal.Year);
                     break;
                 default:
                     //students = students.OrderBy(stu => stu.FirstName);
-                    salariesList = salaries.OrderBy(sal => sal.Month).ToList();
+                    salaries = salaries.OrderBy(sal => sal.Month);
                     break;
             }
-                    var salaryMonthVM = new SalaryMonthViewModel
+            //int pageSize = 3;
+            var salaryMonthVM = new SalaryMonthViewModel
             {
                 Months = new SelectList(await monthQuery.Distinct().ToListAsync()),
                 Years = new SelectList(await yearQuery.Distinct().ToListAsync()),
-                Sals =  salariesList
+                Gradenames = new SelectList(await gradeQuery.Distinct().ToListAsync()),
+                Sals = salaries.Include(u => u.UserProfile).ToList()
+
+
+                //Sals = await PaginatedList<Salary>.CreateAsync(salaries.AsNoTracking(), pageNumber ?? 1, pageSize)
             };
 
             return View(salaryMonthVM);
 
 
+            //return View(await PaginatedList<Salary>.CreateAsync(salaries.AsNoTracking(), pageNumber ?? 1, pageSize));
+
 
         }
-       
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {

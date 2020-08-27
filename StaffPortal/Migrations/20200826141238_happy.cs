@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StaffPortal.Migrations
 {
-    public partial class Afresh : Migration
+    public partial class happy : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -268,7 +268,10 @@ namespace StaffPortal.Migrations
                     Year = table.Column<string>(nullable: true),
                     UserProfileId = table.Column<int>(nullable: false),
                     CreatedBy = table.Column<string>(nullable: true),
-                    DateCreated = table.Column<DateTime>(nullable: false)
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    TransportPercent_ = table.Column<double>(nullable: false),
+                    Transport = table.Column<double>(nullable: false),
+                    Allowance = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {

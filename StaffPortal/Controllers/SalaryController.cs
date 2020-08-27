@@ -229,6 +229,9 @@ namespace StaffPortal.Controllers
         {
             salary.CreatedBy = _userManager.GetUserName(User);
             salary.DateCreated = DateTime.Now;
+            var sam = salary.TransportPercent_;
+            var nuel = salary.UserProfile.Transport;
+            salary.Transport = salary.TransportPercent_ + 5000;
             var createSalary = await _salary.AddAsync(salary);
 
             //if (createSalary)

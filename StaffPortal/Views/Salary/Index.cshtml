@@ -64,7 +64,10 @@
                                 <th>
                                     @Html.ActionLink("DateCreated", "Index", new { Sorting_Order = ViewBag.SortingDate })
                                 </th>
-                                
+                                <th>
+                                    Transport
+                                </th>
+
                             </tr>
                            
                         </thead>
@@ -72,21 +75,24 @@
 
                             @foreach (var Salary in Model.Sals)
                             {
-                                <tr>
-                                    <td>@Salary.Id</td>
+                            <tr>
+                                <td>@Salary.Id</td>
 
-                                    <td>@Salary.Month  </td>
-                                    <td>@Salary.Year </td>
+                                <td>@Salary.Month  </td>
+                                <td>@Salary.Year </td>
+                                <td>@Salary.UserProfile </td>
 
-                                    <td>@Salary.CreatedBy  </td>
-                                    <td>@Salary.DateCreated    </td>
 
-                                    <td>
+                                <td>@Salary.CreatedBy  </td>
+                                <td>@Salary.DateCreated    </td>
 
-                                    <td><a asp-action="Edit" asp-route-id="@Salary.Id" alt="Edit"><i class="ti-pencil" aria-hidden="true"></i></a> </td>
-                                    <td><a onclick="return confirm('Are you sure you want to delete this record');" asp-action="Delete" asp-route-id="@Salary.Id"><i class="ti-trash" aria-hidden="true"></i></a> </td>
+                                <td>@Salary.Transport</td>
+                                <td>
 
-                                </tr>
+                                <td><a asp-action="Edit" asp-route-id="@Salary.Id" alt="Edit"><i class="ti-pencil" aria-hidden="true"></i></a> </td>
+                                <td><a onclick="return confirm('Are you sure you want to delete this record');" asp-action="Delete" asp-route-id="@Salary.Id"><i class="ti-trash" aria-hidden="true"></i></a> </td>
+
+                            </tr>
 
 
                             }

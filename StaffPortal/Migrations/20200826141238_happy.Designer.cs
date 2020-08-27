@@ -10,8 +10,8 @@ using StaffPortal.Data;
 namespace StaffPortal.Migrations
 {
     [DbContext(typeof(StaffPortalDataContext))]
-    [Migration("20200824195429_Afresh")]
-    partial class Afresh
+    [Migration("20200826141238_happy")]
+    partial class happy
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -352,11 +352,17 @@ namespace StaffPortal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<double>("Allowance");
+
                     b.Property<string>("CreatedBy");
 
                     b.Property<DateTime>("DateCreated");
 
                     b.Property<string>("Month");
+
+                    b.Property<double>("Transport");
+
+                    b.Property<double>("TransportPercent_");
 
                     b.Property<int>("UserProfileId");
 

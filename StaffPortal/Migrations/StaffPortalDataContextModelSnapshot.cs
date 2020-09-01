@@ -15,7 +15,7 @@ namespace StaffPortal.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -316,19 +316,6 @@ namespace StaffPortal.Migrations
                     b.ToTable("LGAs");
                 });
 
-            modelBuilder.Entity("StaffPortal.Entities.News", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Message");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("NewsRoom");
-                });
-
             modelBuilder.Entity("StaffPortal.Entities.NewState", b =>
                 {
                     b.Property<int>("Id")
@@ -342,13 +329,24 @@ namespace StaffPortal.Migrations
                     b.ToTable("NewStates");
                 });
 
+            modelBuilder.Entity("StaffPortal.Entities.News", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Message");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("NewsRoom");
+                });
+
             modelBuilder.Entity("StaffPortal.Entities.Salary", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("Allowance");
 
                     b.Property<string>("CreatedBy");
 
@@ -356,13 +354,15 @@ namespace StaffPortal.Migrations
 
                     b.Property<string>("Month");
 
-                    b.Property<double>("Transport");
-
-                    b.Property<double>("TransportPercent_");
-
                     b.Property<int>("UserProfileId");
 
                     b.Property<string>("Year");
+
+                    b.Property<double>("YearAllow");
+
+                    b.Property<double>("YearDeduction");
+
+                    b.Property<double>("YearPay");
 
                     b.HasKey("Id");
 

@@ -99,6 +99,55 @@ namespace StaffPortal.Controllers
 
 
         //}
+
+        public async Task<IActionResult> Year()
+        {
+            
+
+            var model = await _salary.GetYear();
+
+            if (model != null)
+            {
+
+                return View(model);
+            }
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> YearlyReport(int id)
+        {
+           
+           
+            var sal = await _salary.GetById(id);
+            var userp = await _userProfile.GetById(sal.UserProfileId);
+            var x = await _userManager.FindByEmailAsync(userp.Email);
+            var model = await _salary.GetYearReport(sal);
+
+            var salaryYearVM = new SalaryYearViewModel
+            {
+                //Months = new SelectList(await monthQuery.Distinct().ToListAsync()),
+                //Years = new SelectList(await yearQuery.Distinct().ToListAsync()),
+                //Gradenames = new SelectList(await gradeQuery.Distinct().ToListAsync()),
+                FullName = x.FullName,
+                Appuser = await _context.Users.Where(a => a.Email == userp.Email).ToListAsync(),
+                Grades = await _context.Grades.Where(a => a.Id == userp.GradeId).ToListAsync(),
+                Sals = await _context.Salaries.Include(u => u.UserProfile).Where(a => a.Year == sal.Year).Where(a => a.UserProfileId == sal.UserProfileId).ToListAsync()
+
+
+                //Sals = await PaginatedList<Salary>.CreateAsync(salaries.AsNoTracking(), pageNumber ?? 1, pageSize)
+            };
+
+            return View(salaryYearVM);
+
+
+
+            //if (model != null)
+            //{
+
+            //    return View(model);
+            //}
+            //return View();
+        }
         public async Task<IActionResult> Index(string salaryMonth, string salaryYear, string searchString, string Sorting_Order, string currentFilter, int? pageNumber)
         {
             ViewBag.CurrentSort = Sorting_Order;
@@ -269,9 +318,9 @@ namespace StaffPortal.Controllers
         {
             salary.CreatedBy = _userManager.GetUserName(User);
             salary.DateCreated = DateTime.Now;
-            var sam = salary.TransportPercent_;
-            var nuel = salary.UserProfile.Transport;
-            salary.Transport = salary.TransportPercent_ + 5000;
+            //var sam = salary.TransportPercent_;
+            //var nuel = salary.UserProfile.Transport;
+            //salary.Transport = salary.TransportPercent_ + 5000;
             var createSalary = await _salary.AddAsync(salary);
 
             //if (createSalary)

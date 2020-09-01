@@ -1,9 +1,6 @@
-﻿@using StaffPortal.Entities
-
-@model StaffPortal.Models.SalaryMonthViewModel
-@*    @model IEnumerable<StaffPortal.Entities.Salary>*@
+﻿   @model IEnumerable<StaffPortal.Entities.Salary>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Year";
 }
 <!-- ============================================================== -->
 
@@ -26,62 +23,39 @@
             <a asp-controller="Salary" asp-action="Create" class="btn float-right hidden-sm-down btn-success"><i class="mdi mdi-plus-circle"></i>New Salary</a>
             <div style="font-family:Arial">
 
-                <form asp-controller="Salary" asp-action="Index" method="get">
-                    <p>
-                        Month: <select asp-for="SalaryMonth" asp-items="Model.Months">
-                            <option value="">All</option>
-                        </select>
-
-                        Year: <select asp-for="SalaryYear" asp-items="Model.Years">
-                            <option value="">All</option>
-                        </select>
-                        GradeName: <select asp-for="SalaryGradeName" asp-items="Model.Gradenames">
-                            <option value="">All</option>
-                        </select>
-
-                        <br />
-                        Word index: <input type="text" name="SearchString">
-                        <input type="submit" value="Filter" />
-                    </p>
-                </form>
-
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
+
                                 <th>
-                                    @Html.ActionLink("Id", "Index", new { Sorting_Order = ViewBag.SortingId })
+                                    Firstname
                                 </th>
                                 <th>
-                                    @Html.ActionLink("First Name", "Index", new { Sorting_Order = ViewBag.Sortingfirst })
+                                    Lastname
                                 </th>
                                 <th>
-                                    @Html.ActionLink("LastName", "Index", new { Sorting_Order = ViewBag.Sortinglast })
+                                    Email
                                 </th>
                                 <th>
-                                    @Html.ActionLink("Email", "Index", new { Sorting_Order = ViewBag.Sortingemail })
+                                    Grade Name
                                 </th>
                                 <th>
-                                    @Html.ActionLink("Grade", "Index", new { Sorting_Order = ViewBag.SortingMonth })
+                                    Year
                                 </th>
                                 <th>
-                                    @Html.ActionLink("Month", "Index", new { Sorting_Order = ViewBag.SortingMonth })
-                                </th>
-                                <th>
-                                    @Html.ActionLink("Year", "Index", new { Sorting_Order = ViewBag.SortingYear })
-                                </th>
-                                <th>Basic Salary</th>
-                                <th>Total Allowance</th>
-                                <th>Total Deduction</th>
-                                <th>Net Pay</th>
-                                <th>
-                                    @Html.ActionLink("CreatedBy", "Index", new { Sorting_Order = ViewBag.SortingCreate })
-                                </th>
-                                <th>
-                                    @Html.ActionLink("DateCreated", "Index", new { Sorting_Order = ViewBag.SortingDate })
+                                    Total Allowance
                                 </th>
 
 
+
+                                <th>
+                                    Total Deduction
+                                </th>
+
+                                <th>
+                                    Total NetPay
+                                </th>
 
 
                             </tr>
@@ -89,30 +63,28 @@
                         </thead>
                         <tbody>
 
-                            @foreach (var Salary in Model.Sals)
+                            @foreach (var Salary in Model)
                             {
                             <tr>
-                                <td>@Salary.Id</td>
-
+                                
                                 <td>@Salary.UserProfile.FirstName   </td>
                                 <td>@Salary.UserProfile.LastName   </td>
                                 <td>@Salary.UserProfile.Email   </td>
-                                <td>@Salary.UserProfile.GradeName   </td>
+                                <td> @Salary.UserProfile.GradeName </td>
 
-                                <td>@Salary.Month  </td>
                                 <td>@Salary.Year </td>
-                                <td>@Salary.UserProfile.BasicSalary   </td>
-                                <td>@Salary.UserProfile.TotAllowance   </td>
-                                <td>@Salary.UserProfile.TotDeduction   </td>
-                                <td>@Salary.UserProfile.NetPay   </td>
-                                <td>@Salary.CreatedBy  </td>
-                                <td>@Salary.DateCreated    </td>
+
+                                <td>@Salary.YearAllow  </td>
+                                <td> @Salary.YearDeduction   </td>
+                                <td> @Salary.YearPay   </td>
 
 
 
 
                                 <td><a asp-action="Edit" asp-route-id="@Salary.Id" alt="Edit"><i class="ti-pencil" aria-hidden="true"></i></a> </td>
                                 <td><a onclick="return confirm('Are you sure you want to delete this record');" asp-action="Delete" asp-route-id="@Salary.Id"><i class="ti-trash" aria-hidden="true"></i></a> </td>
+
+                              
                                 <td>
                                     <a asp-controller="Salary" asp-action="YearlyReport" asp-route-id="@Salary.Id" class="btn float-right hidden-sm-down btn-success"><i class="mdi mdi-plus-circle"></i>Salary Report</a>
                                 </td>

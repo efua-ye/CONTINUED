@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace StaffPortal.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class DepartmentController : BaseController
 
     {

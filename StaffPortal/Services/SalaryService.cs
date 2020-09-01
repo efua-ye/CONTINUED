@@ -5,6 +5,7 @@ using StaffPortal.Data;
 using StaffPortal.Entities;
 using Microsoft.EntityFrameworkCore;
 using StaffPortal.Interface;
+using System.Linq;
 
 namespace StaffPortal.Services
 {
@@ -62,11 +63,39 @@ namespace StaffPortal.Services
 
         public async Task<IEnumerable<Salary>> GetAll() //GetAll
         {
-           // return await _context.Salaries.ToListAsync();
-
+            // return await _context.Salaries.ToListAsync();
             return await _context.Salaries.Include(u => u.UserProfile).ToListAsync();
         }
 
+        public async Task<IEnumerable<Salary>> GetYearReport(Salary sal) //GetAll
+        {
+            // return await _context.Salaries.ToListAsync();
+            var x = _context.Salaries.Include(u => u.UserProfile).Where(a=> a.Year == sal.Year).Where(a => a.UserProfileId == sal.UserProfileId).ToListAsync();
+            return await x;
+        }
+
+        public async Task<IEnumerable<Salary>> GetYear() //GetAll
+        {
+
+            // return await _context.Salaries.ToListAsync();
+            var x = _context.Salaries.Include(u => u.UserProfile).GroupBy(b => new { b.Year, b.UserProfileId, b.UserProfile }).Select(c => new Salary
+            {
+                YearAllow = (c.Sum(p => p.UserProfile.Grade.TotAllowance)),
+                Year = c.Key.Year,
+                UserProfileId = c.Key.UserProfileId,
+                UserProfile = c.Key.UserProfile,
+                YearDeduction = (c.Sum(p => p.UserProfile.Grade.TotDeduction)),
+                YearPay = (c.Sum(p => p.UserProfile.Grade.NetSalary)),
+
+
+            }
+            );
+
+            return await x.ToListAsync();
+
+
+            
+        }
         public async Task<Salary> GetById(int Id) //GetById
         {
             var sal = await _context.Salaries.FindAsync(Id);

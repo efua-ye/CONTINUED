@@ -9,7 +9,7 @@ using StaffPortal.Models;
 
 namespace StaffPortal.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()

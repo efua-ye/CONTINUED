@@ -1,0 +1,136 @@
+﻿
+
+@using Microsoft.AspNetCore.Identity
+@using StaffPortal.Entities
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model StaffPortal.Models.SalaryYearViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Salary Report</h3>
+    </div>
+    <!--   <div class="col-md-7 align-self-center">
+         <a href="https://wrappixel.com/templates/adminpro/" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Upgrade to Pro</a>
+      </div>-->
+</div>
+<div class="row">
+    <!-- column -->
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h2 align="center">@Model.FullName  Salary Details</h2>
+            <div class="table-responsive">
+                <form asp-action="Index" method="post" class="mt-4">
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="table-responsive">
+
+
+
+                        @foreach (var user in Model.Appuser)
+                        {
+                            <label> <span>FirstName</span> : @user.FirstName<></label>
+                            <label> <span>LastName</span> : @user.LastName<></label>
+                            <label> <span>Email</span> : @user.Email<></label>
+                            <label> <span>State</span> : @user.NewStates<></label>
+                            <label> <span>Local Government</span> : @user.LGAs<></label>
+                            <label> <span>Country</span> : @user.Country<></label>
+                           
+                        }
+                        <table class="table">
+                            <tbody>
+                                @foreach (var grade in Model.Grades)
+                                {
+                                    <tr>
+                                        <td><span><strong>Email</strong></span> : </td>
+                                        <td><span><strong>Grade</strong></span>  : @grade.GradeName</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span><strong>Level</strong></span>  : @grade.Level</td>
+                                        <td><span><strong>Step</strong></span> :  @grade.Step</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+
+
+
+                        <table id="sum_table" class="table">
+                            <thead class="sal">
+                                <tr class="titlerow">
+                                    <td>Month</td>
+                                    <td>Basic Sal</td>
+                                    <td> Total Allowance</td>
+                                    <td> Total Deduction</td>
+                                    <td> NetPay</td>
+
+                                </tr>
+                            </thead>
+                            <!-- <tbody> -->
+                            @foreach (var Salary in Model.Sals)
+                            {
+                                <tr>
+
+                                    <td>@Salary.Month  </td>
+                                    <td class="rowDataSd">@Salary.UserProfile.BasicSalary   </td>
+                                    <td class="rowDataSd">@Salary.UserProfile.TotAllowance   </td>
+                                    <td class="rowDataSd">@Salary.UserProfile.TotDeduction   </td>
+                                    <td class="rowDataSd">@Salary.UserProfile.NetPay   </td>
+
+
+
+                                </tr>
+
+
+                            }
+                            <!--  </tbody>  -->
+                            <tfoot class="totalCol">
+
+                                <tr class="totalColumn">
+                                    <td>Total:</td>
+                                    <td class="totalCol">Total:</td>
+                                    <td class="totalCol">Total:</td>
+                                    <td class="totalCol">Total:</td>
+                                    <td class="totalCol">Total:</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+
+                    <a asp-action="Cancel" type="button" class="btn btn-dark">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script src="~/js/jquery-3.2.1.min.js"></script>
+<script>var totals = [0, 0, 0, 0];
+    $(document).ready(function () {
+
+        var $dataRows = $("#sum_table tr:not('.totalColumn, .titlerow'), thead:not('.sal')");
+
+        $dataRows.each(function () {
+            $(this).find('.rowDataSd').each(function (i) {
+                totals[i] += parseInt($(this).html());
+            });
+        });
+        $("#sum_table td.totalCol").each(function (i) {
+            $(this).html(" " + totals[i]);
+        });
+
+    });</script>
+
+

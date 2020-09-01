@@ -27,31 +27,39 @@ namespace StaffPortal.Services
         }
         public async Task<bool> AddAsync(Grade grade) //AddAsync
         {
-            try
+            //  var existingGradeCount = _context.Grade.Count(g => g.GradeName == grade.GradeName);
+            //   var existingGradeCountLevel = _context.Grade.Count(g => g.GradeLevel == grade.GradeLevel);
+            var existingGradeCount = _context.Grades.Count(g => g.Step == grade.Step && g.Level == grade.Level && g.GradeName == grade.GradeName);
+
+            if (existingGradeCount == 0)
             {
-                grade.Tax = grade.TaxPercent * grade.BasicSalary / 100;
-                grade.Lunch = grade.LunchPercent * grade.BasicSalary / 100;
-                grade.Transport = grade.TransportPercent * grade.BasicSalary / 100;
-                grade.Housing = grade.HousingPercent * grade.BasicSalary / 100;
-                grade.Medical = grade.MedicalPercent * grade.BasicSalary / 100;
+                try
+                {
+                    grade.Tax = grade.TaxPercent * grade.BasicSalary / 100;
+                    grade.Lunch = grade.LunchPercent * grade.BasicSalary / 100;
+                    grade.Transport = grade.TransportPercent * grade.BasicSalary / 100;
+                    grade.Housing = grade.HousingPercent * grade.BasicSalary / 100;
+                    grade.Medical = grade.MedicalPercent * grade.BasicSalary / 100;
 
-                grade.TotDeduction = grade.Tax;
+                    grade.TotDeduction = grade.Tax;
 
-                grade.TotAllowance = grade.BasicSalary + grade.Lunch + grade.Medical + grade.Housing +
-                    grade.Transport;
+                    grade.TotAllowance = grade.BasicSalary + grade.Lunch + grade.Medical + grade.Housing +
+                        grade.Transport;
 
-                grade.NetSalary = grade.TotAllowance - grade.TotDeduction;
-                await _context.AddAsync(grade);
+                    grade.NetSalary = grade.TotAllowance - grade.TotDeduction;
+                    await _context.AddAsync(grade);
 
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-                return false;
+                    await _context.SaveChangesAsync();
+                }
+
+                catch (Exception)
+                {
+                    return false;
+                }
             }
             return true;
         }
-
+//}
         public async Task<bool> Delete(int Id)//Delete
         {
             // find the entity/object

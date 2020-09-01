@@ -19,31 +19,49 @@ namespace StaffPortal.Services
 
         public void Add(Salary salary) //Add
         {
-            if (salary.Equals(_context))
-            {
+            //if (salary.Equals(_context))
+            //{
 
-                Console.WriteLine("ERRRORRRR!!!!!!!!!!");            }
-            else
-            {
+            //    Console.WriteLine("ERRRORRRR!!!!!!!!!!");            }
+            //else
+            
                 _context.Add(salary);
                 _context.SaveChanges();
-            }
+            
            
         }
         public async Task<bool> AddAsync(Salary salary) //AddAsync
         {
-            try
-            {
-                
-                await _context.AddAsync(salary);
 
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception)
+            var existingGradeCount = _context.Salaries.Count(g => g.Month == salary.Month && g.Year == salary.Year && g.UserProfileId == salary.UserProfileId);
+
+            if (existingGradeCount == 0)
             {
-                return false;
+
+                try
+                {
+
+                    await _context.AddAsync(salary);
+
+                    await _context.SaveChangesAsync();
+                }
+
+                catch (Exception)
+                {
+                    return false;
+                }
+                return true;
+
             }
-            return true;
+            else
+            {
+               return false;
+            }
+            
+                
+          
+           
+            
         }
 
         public async Task<bool> Delete(int Id)//Delete

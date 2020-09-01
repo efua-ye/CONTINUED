@@ -318,9 +318,12 @@ namespace StaffPortal.Controllers
         {
             salary.CreatedBy = _userManager.GetUserName(User);
             salary.DateCreated = DateTime.Now;
+<<<<<<< HEAD
             //var sam = salary.TransportPercent_;
             //var nuel = salary.UserProfile.Transport;
             //salary.Transport = salary.TransportPercent_ + 5000;
+=======
+>>>>>>> ce6dc42c5e342d6bf37f3c4374f322badf3d48cc
             var createSalary = await _salary.AddAsync(salary);
 
             //if (createSalary)
@@ -335,7 +338,7 @@ namespace StaffPortal.Controllers
             }
             else
             {
-                Alert("Salary not created😔!", NotificationType.error);
+                Alert("Cannot create duplicate salary record😔!", NotificationType.error);
             }
 
 

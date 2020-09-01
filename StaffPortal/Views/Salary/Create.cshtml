@@ -18,6 +18,7 @@
         <div class="white-box">
             <h3>Salary</h3>
             <div class="table-responsive">
+<<<<<<< HEAD
                 <form asp-action="Create" method="post" class="mt-4">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group mb-4">
@@ -63,6 +64,52 @@
 
                     <button type="submit" class="btn btn-success mr-2">Submit</button>
                     <a asp-action="Cancel" type="button" class="btn btn-dark">Cancel</a>
+=======
+                <form asp-action="Create" method="post" class="mt-4">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group mb-4">
+                        <label for="exampleFormControlSelect1">Employee</label>
+                        <select class="form-control" id="exampleFormControlSelect1" asp-for="UserProfileId" asp-items="@ViewBag.user">
+                            <option>Choose Option</option>
+                        </select>
+                    </div><br />
+                    <div class="form-group">
+                        <select class="form-control" asp-for="@Model.Month">
+                            <option value="">--</option>
+                            <option value="January">January</option>
+                            <option value="February">February</option>
+                            <option value="March">March</option>
+                            <option value="April">April</option>
+                            <option value="May">May</option>
+                            <option value="June">June</option>
+                            <option value="July">July</option>
+                            <option value="August">August</option>
+                            <option value="September">September</option>
+                            <option value="October">October</option>
+                            <option value="November">November</option>
+                            <option value="December">December</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Year"> Year</label>
+                        <input type="text" asp-for="Year" class="form-control" placeholder="Enter Salary Name" required="">
+                        <span asp-validation-for="Year" class="text-danger"></span>
+                    </div>
+
+                    @*<div class="form-group">
+            <label asp-for="TransportPercent_">Transport</label>
+            <input type="text" asp-for="TransportPercent_" class="form-control" id="name" placeholder="Enter Addtional Transport" required="">
+            <span asp-validation-for="TransportPercent_" class="text-danger"></span>
+        </div>*@
+                    @*<div class="form-group">
+            <label asp-for="Code">Code</label>
+            <input type="text" asp-for="Code" class="form-control" id="name" placeholder="Enter Salary Code" required="">
+            <span asp-validation-for="Code" class="text-danger"></span>
+        </div>*@
+
+                    <button type="submit" class="btn btn-success mr-2">Submit</button>
+                    <a asp-action="Cancel" type="button" class="btn btn-dark">Cancel</a>
+>>>>>>> ce6dc42c5e342d6bf37f3c4374f322badf3d48cc
                 </form>
             </div>
         </div>

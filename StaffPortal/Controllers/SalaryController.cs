@@ -99,6 +99,32 @@ namespace StaffPortal.Controllers
 
 
         //}
+        [HttpGet]
+        public async Task<IActionResult> UserYear()
+        {
+
+            var user = _userManager.GetUserName(User);
+            var x = await _userManager.FindByNameAsync(user);
+
+            var sal = _userProfile.GetIdByEmail(x.Email);
+            if (sal != 0)
+            {
+                var usersal = await _salary.GetUserYear(sal);
+
+
+
+                if (usersal != null)
+                {
+                    return View(usersal);
+                }
+            }
+
+
+            return RedirectToAction("UserError");
+
+
+
+        }
 
         public async Task<IActionResult> Year()
         {
@@ -148,6 +174,36 @@ namespace StaffPortal.Controllers
             //}
             //return View();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> UserYearlyReport(int id)
+        {
+
+
+            var sal = await _salary.GetById(id);
+            var userp = await _userProfile.GetById(sal.UserProfileId);
+            var x = await _userManager.FindByEmailAsync(userp.Email);
+            var model = await _salary.GetYearReport(sal);
+
+            var salaryYearVM = new SalaryYearViewModel
+            {
+               
+                FullName = x.FullName,
+                Appuser = await _context.Users.Where(a => a.Email == userp.Email).ToListAsync(),
+                Grades = await _context.Grades.Where(a => a.Id == userp.GradeId).ToListAsync(),
+                Sals = await _context.Salaries.Include(u => u.UserProfile).Where(a => a.Year == sal.Year).Where(a => a.UserProfileId == sal.UserProfileId).ToListAsync()
+
+
+                //Sals = await PaginatedList<Salary>.CreateAsync(salaries.AsNoTracking(), pageNumber ?? 1, pageSize)
+            };
+
+            return View(salaryYearVM);
+
+
+
+        }
+
+
         public async Task<IActionResult> Index(string salaryMonth, string salaryYear, string searchString, string Sorting_Order, string currentFilter, int? pageNumber)
         {
             ViewBag.CurrentSort = Sorting_Order;
@@ -318,12 +374,6 @@ namespace StaffPortal.Controllers
         {
             salary.CreatedBy = _userManager.GetUserName(User);
             salary.DateCreated = DateTime.Now;
-<<<<<<< HEAD
-            //var sam = salary.TransportPercent_;
-            //var nuel = salary.UserProfile.Transport;
-            //salary.Transport = salary.TransportPercent_ + 5000;
-=======
->>>>>>> ce6dc42c5e342d6bf37f3c4374f322badf3d48cc
             var createSalary = await _salary.AddAsync(salary);
 
             //if (createSalary)
@@ -396,6 +446,16 @@ namespace StaffPortal.Controllers
             }
             return View();
         }
+        public async Task<IActionResult> DeleteYear(int id)
+        {
+            var deleteSalary = await _salary.DeleteYear(id);
+            if (deleteSalary)
+            {
+                return RedirectToAction("Year", "Salary");
+            }
+            return View();
+        }
+
         public IActionResult Cancel()
         {
             return RedirectToAction("Index", "Salary");

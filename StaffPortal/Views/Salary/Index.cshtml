@@ -79,14 +79,7 @@
                                 </th>
                                 <th>
                                     @Html.ActionLink("DateCreated", "Index", new { Sorting_Order = ViewBag.SortingDate })
-<<<<<<< HEAD
-                                </th>
-
-
-
-=======
-                               </th>
->>>>>>> ce6dc42c5e342d6bf37f3c4374f322badf3d48cc
+</th>
 
                             </tr>
 
@@ -97,10 +90,7 @@
                             {
                             <tr>
                                 <td>@Salary.Id</td>
-<<<<<<< HEAD
 
-=======
->>>>>>> ce6dc42c5e342d6bf37f3c4374f322badf3d48cc
                                 <td>@Salary.UserProfile.FirstName   </td>
                                 <td>@Salary.UserProfile.LastName   </td>
                                 <td>@Salary.UserProfile.Email   </td>
@@ -120,14 +110,10 @@
 
                                 <td><a asp-action="Edit" asp-route-id="@Salary.Id" alt="Edit"><i class="ti-pencil" aria-hidden="true"></i></a> </td>
                                 <td><a onclick="return confirm('Are you sure you want to delete this record');" asp-action="Delete" asp-route-id="@Salary.Id"><i class="ti-trash" aria-hidden="true"></i></a> </td>
-<<<<<<< HEAD
+
                                 <td>
                                     <a asp-controller="Salary" asp-action="YearlyReport" asp-route-id="@Salary.Id" class="btn float-right hidden-sm-down btn-success"><i class="mdi mdi-plus-circle"></i>Salary Report</a>
-                                </td>
-=======
-
-
->>>>>>> ce6dc42c5e342d6bf37f3c4374f322badf3d48cc
+                                    </td>
                             </tr>
 
 

@@ -29,12 +29,7 @@
                         <thead>
                             <tr>
 
-                                <th>
-                                    Firstname
-                                </th>
-                                <th>
-                                    Lastname
-                                </th>
+
                                 <th>
                                     Email
                                 </th>
@@ -67,9 +62,8 @@
                             @foreach (var Salary in Model)
                             {
                             <tr>
-                               
-                                <td>@Salary.UserProfile.FirstName   </td>
-                                <td>@Salary.UserProfile.LastName   </td>
+                                
+                                
                                 <td>@Salary.UserProfile.Email   </td>
                                 <td> @Salary.UserProfile.GradeName </td>
 
@@ -87,7 +81,8 @@
 
                               
                                 <td>
-                                    <a asp-controller="Salary" asp-action="YearlyReport" asp-route-id="@Salary.Id" class="btn float-right hidden-sm-down btn-success"><i class="mdi mdi-plus-circle"></i>Salary Report</a>
+                                   
+                                        <a href="http://localhost:49821/Salary/UserYearlyReport/@Salary.Id" target="_blank"  class="btn float-right hidden-sm-down btn-success"><i class="mdi mdi-plus-circle"></i>Salary Report</a>
                                 </td>
                             </tr>
 

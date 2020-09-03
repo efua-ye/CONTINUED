@@ -79,6 +79,26 @@ namespace StaffPortal.Services
             return false;
         }
 
+        public async Task<bool> DeleteYear(int Id)//Delete
+        {
+            // find the entity/object
+            var sal = await _context.Salaries.FindAsync(Id);
+            var salrows =  _context.Salaries.Where(a => a.Year == sal.Year && a.UserProfileId == sal.UserProfileId);
+            if (sal != null)
+            {
+                foreach (var row in salrows)
+                {
+                    _context.Salaries.Remove(row);
+                }
+
+               
+                _context.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
         public async Task<IEnumerable<Salary>> GetAll() //GetAll
         {
             // return await _context.Salaries.ToListAsync();
@@ -104,15 +124,40 @@ namespace StaffPortal.Services
                 UserProfile = c.Key.UserProfile,
                 YearDeduction = (c.Sum(p => p.UserProfile.Grade.TotDeduction)),
                 YearPay = (c.Sum(p => p.UserProfile.Grade.NetSalary)),
+                Id = _context.Salaries.First(f => f.UserProfileId == c.Key.UserProfileId && f.Year == c.Key.Year).Id
 
 
-            }
+        }
             );
 
             return await x.ToListAsync();
 
 
             
+        }
+
+        public async Task<IEnumerable<Salary>> GetUserYear(int id) //GetAll
+        {
+
+            // return await _context.Salaries.ToListAsync();
+            var x = _context.Salaries.Include(u => u.UserProfile).GroupBy(b => new { b.Year, b.UserProfileId, b.UserProfile }).Select(c => new Salary
+            {
+                YearAllow = (c.Sum(p => p.UserProfile.Grade.TotAllowance)),
+                Year = c.Key.Year,
+                UserProfileId = c.Key.UserProfileId,
+                UserProfile = c.Key.UserProfile,
+                YearDeduction = (c.Sum(p => p.UserProfile.Grade.TotDeduction)),
+                YearPay = (c.Sum(p => p.UserProfile.Grade.NetSalary)),
+                Id = _context.Salaries.First(f => f.UserProfileId == c.Key.UserProfileId && f.Year == c.Key.Year).Id
+
+
+            }
+            ).Where(i => i.UserProfileId == id);
+
+            return await x.ToListAsync();
+
+
+
         }
         public async Task<Salary> GetById(int Id) //GetById
         {

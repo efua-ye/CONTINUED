@@ -18,6 +18,10 @@
         <div class="white-box">
             <h3>Salary</h3>
             <div class="table-responsive">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 52466e7b508a31b6e1a8429e02feae69266f3c94
                 <form asp-action="Create" method="post" class="mt-4">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group mb-4">
@@ -28,9 +32,10 @@
                     </div><br />
                     <div class="form-group">
                         <select class="form-control" asp-for="@Model.Month">
-                            <option value="">--</option>
+                            <option hidden disabled selected>Choose Option</option>
+                            <!-- <option value="">--</option> -->
                             <option value="January">January</option>
-                            <option value="January">January</option>
+
                             <option value="February">February</option>
                             <option value="March">March</option>
                             <option value="April">April</option>
@@ -63,6 +68,7 @@
 
                     <button type="submit" class="btn btn-success mr-2">Submit</button>
                     <a asp-action="Cancel" type="button" class="btn btn-dark">Cancel</a>
+<<<<<<< HEAD
 
                 @*<form asp-action="Create" method="post" class="mt-4">
                     <div asp-validation-summary="All" class="text-danger"></div>
@@ -110,6 +116,10 @@
                     <a asp-action="Cancel" type="button" class="btn btn-dark">Cancel</a>
                         *@
 
+=======
+
+               
+>>>>>>> 52466e7b508a31b6e1a8429e02feae69266f3c94
                 </form>
             </div>
         </div>

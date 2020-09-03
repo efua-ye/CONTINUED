@@ -13,9 +13,14 @@ namespace StaffPortal.Interface
         Task<bool> Update(Salary salary);
         Task<IEnumerable<Salary>> GetAll();
         Task<IEnumerable<Salary>> GetYear();
+        Task<IEnumerable<Salary>> GetUserYear(int id);
         Task<Salary> GetById(int Id);
         Task<bool> Delete(int Id);
         Task<IEnumerable<Salary>> GetById(Salary sal);
+
+        Task<bool> DeleteYear(int Id);
+        Task<IEnumerable<Salary>> GetYearReport(Salary sal);
+
         //Task<IQueryable<string Year, int UserProfileId>> GetYear();
 
         /*

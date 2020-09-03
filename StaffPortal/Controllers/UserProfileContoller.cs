@@ -69,7 +69,7 @@ namespace StaffPortal.Controllers
 
             if (usersal == null)
             {
-                return RedirectToAction("UserError");
+                return RedirectToAction("UserError", "UserProfile");
             }
             else
             {

@@ -87,9 +87,12 @@
                                     <ul class="dropdown-menu drp-mnu">
                                         <!--<li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li> -->
                                         <li> <a asp-controller="Account" asp-action="UserIndex"><i class="fa fa-user"></i> Profile</a> </li>
+
                                        
-                                   @*Efuaye*@  <li> <a href=" http://localhost:17442/UserProfile/PersonalSalary" target="_blank"><i class="fa fa-user"></i> Salary</a> </li>
-                                 @*Bolu*@      <li> <a href="http://localhost:49821/UserProfile/PersonalSalary" target="_blank"><i class="fa fa-user"></i> Salary</a> </li>
+                                        @*Efuaye  --> http://localhost:17442/UserProfile/PersonalSalary*@
+                                        @*Bolu  --->http://localhost:49821/UserProfile/PersonalSalary *@
+                                        <li> <a href="http://localhost:49821/UserProfile/PersonalSalary" target="_blank"><i class="fa fa-user"></i> Salary</a> </li>
+                                        <li> <a asp-controller="Salary" asp-action="UserYear"><i class="fa fa-user"></i> Yearly Salary</a> </li>
                                         <li> <a asp-controller="Account" asp-action="LogOut"><i class="fa fa-sign-out"></i> Logout</a> </li>
                                     </ul>
                                 </li>
@@ -124,6 +127,9 @@
                     </li>
                     <li>
                         <a asp-controller="Salary" asp-action="Index"><i class="ti-user"></i> Salary  </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Salary" asp-action="Year"><i class="ti-user"></i> Yearly Report </a>
                     </li>
                     <li>
                         <a asp-controller="Administration" asp-action="ListRole"><i class="ti-user"></i> Role  </a>

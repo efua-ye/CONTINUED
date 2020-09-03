@@ -5,6 +5,7 @@ using StaffPortal.Data;
 using StaffPortal.Entities;
 using Microsoft.EntityFrameworkCore;
 using StaffPortal.Interface;
+using System.Linq;
 
 namespace StaffPortal.Services
 {
@@ -24,18 +25,31 @@ namespace StaffPortal.Services
         }
         public async Task<bool> AddAsync(Department department) //AddAsync
         {
-            try
-            {
-                
-                await _context.AddAsync(department);
+            var existingCount = _context.Departments.Count(g => g.DeptName == department.DeptName && g.DeptCode == department.DeptCode && g.FacultyId == department.FacultyId);
 
-                await _context.SaveChangesAsync();
+            if (existingCount == 0)
+            {
+
+                try
+                {
+
+                    await _context.AddAsync(department);
+
+                    await _context.SaveChangesAsync();
+                }
+
+                catch (Exception)
+                {
+                    return false;
+                }
+                return true;
+
             }
-            catch (Exception)
+            else
             {
                 return false;
             }
-            return true;
+
         }
 
         public async Task<bool> Delete(int Id)//Delete

@@ -11,10 +11,12 @@ namespace StaffPortal.Data
         public StaffPortalDataContext(DbContextOptions<StaffPortalDataContext> options) : base(options)
         {
         }
-        protected override void OnModelCreating(ModelBuilder builder)
+        /* protected override void OnModelCreating(ModelBuilder builder)
         {
+           
             base.OnModelCreating(builder);
-            builder.Entity<Faculty>()
+            
+             builder.Entity<Faculty>()
             .HasIndex(p => new { p.Name, p.Code })
             .IsUnique(true);
 
@@ -24,7 +26,9 @@ namespace StaffPortal.Data
             builder.Entity<Department>()
             .HasIndex(p => new { p.DeptCode, p.DeptName })
             .IsUnique(false);
-        }
+           
+    }
+     */
         public virtual DbSet<Faculty> Faculties { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Grade> Grades { get; set; }

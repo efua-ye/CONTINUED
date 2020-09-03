@@ -99,8 +99,9 @@ namespace StaffPortal.Controllers
 
 
         //}
+        
 
-        public async Task<IActionResult> Year()
+            public async Task<IActionResult> Year()
         {
             
 
@@ -121,7 +122,7 @@ namespace StaffPortal.Controllers
             var sal = await _salary.GetById(id);
             var userp = await _userProfile.GetById(sal.UserProfileId);
             var x = await _userManager.FindByEmailAsync(userp.Email);
-            var model = await _salary.GetYearReport(sal);
+            var model = await _salary.GetById(sal);
 
             var salaryYearVM = new SalaryYearViewModel
             {
@@ -318,12 +319,9 @@ namespace StaffPortal.Controllers
         {
             salary.CreatedBy = _userManager.GetUserName(User);
             salary.DateCreated = DateTime.Now;
-<<<<<<< HEAD
             //var sam = salary.TransportPercent_;
             //var nuel = salary.UserProfile.Transport;
             //salary.Transport = salary.TransportPercent_ + 5000;
-=======
->>>>>>> ce6dc42c5e342d6bf37f3c4374f322badf3d48cc
             var createSalary = await _salary.AddAsync(salary);
 
             //if (createSalary)
@@ -409,6 +407,38 @@ namespace StaffPortal.Controllers
         }
 
 
-        //GIT, DON'T ANGER ME!!!!!!!!!!!!!!
+        [HttpGet]
+        public async Task<IActionResult> MonthlySalary(int id)
+        {
+            /*
+            var user = _userManager.GetUserName(User);
+            var x = await _userManager.FindByNameAsync(user);
+
+            var sal = _userProfile.GetIdByEmail(x.Email);
+
+            var usersal = await _userProfile.GetById(sal);
+            */
+
+            var sal = await _salary.GetById(id);
+            var userp = await _userProfile.GetById(sal.UserProfileId);
+            var x = await _userManager.FindByEmailAsync(userp.Email);
+            var sali = _userProfile.GetIdByEmail(x.Email);
+
+            //var usersal = await _userProfile.GetById(id);
+            // var model = await _salary.GetById(sal);
+
+
+
+            if (sal == null)
+            {
+                return RedirectToAction("UserError");
+            }
+            else
+            {
+                return View(sal);
+            }
+
+        }
+        //UserMonthlyReport
     }
 }

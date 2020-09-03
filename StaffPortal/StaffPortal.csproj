@@ -52,6 +52,15 @@
     <Content Update="Views\News\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Salary\UserMonthlyDetails.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Salary\UserMonthlyReport.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Salary\MonthlySalary.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Salary\Empty .cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

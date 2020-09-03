@@ -85,7 +85,7 @@ namespace StaffPortal.Services
             return await _context.Salaries.Include(u => u.UserProfile).ToListAsync();
         }
 
-        public async Task<IEnumerable<Salary>> GetYearReport(Salary sal) //GetAll
+        public async Task<IEnumerable<Salary>> GetById(Salary sal) //GetAll
         {
             // return await _context.Salaries.ToListAsync();
             var x = _context.Salaries.Include(u => u.UserProfile).Where(a=> a.Year == sal.Year).Where(a => a.UserProfileId == sal.UserProfileId).ToListAsync();

@@ -24,11 +24,11 @@ namespace StaffPortal.Services
 
             //    Console.WriteLine("ERRRORRRR!!!!!!!!!!");            }
             //else
-            
-                _context.Add(salary);
-                _context.SaveChanges();
-            
-           
+
+            _context.Add(salary);
+            _context.SaveChanges();
+
+
         }
         public async Task<bool> AddAsync(Salary salary) //AddAsync
         {
@@ -55,13 +55,13 @@ namespace StaffPortal.Services
             }
             else
             {
-               return false;
+                return false;
             }
-            
-                
-          
-           
-            
+
+
+
+
+
         }
 
         public async Task<bool> Delete(int Id)//Delete
@@ -83,7 +83,7 @@ namespace StaffPortal.Services
         {
             // find the entity/object
             var sal = await _context.Salaries.FindAsync(Id);
-            var salrows =  _context.Salaries.Where(a => a.Year == sal.Year && a.UserProfileId == sal.UserProfileId);
+            var salrows = _context.Salaries.Where(a => a.Year == sal.Year && a.UserProfileId == sal.UserProfileId);
             if (sal != null)
             {
                 foreach (var row in salrows)
@@ -91,7 +91,7 @@ namespace StaffPortal.Services
                     _context.Salaries.Remove(row);
                 }
 
-               
+
                 _context.SaveChanges();
                 return true;
             }
@@ -104,11 +104,16 @@ namespace StaffPortal.Services
             // return await _context.Salaries.ToListAsync();
             return await _context.Salaries.Include(u => u.UserProfile).ToListAsync();
         }
+        public async Task<IEnumerable<Salary>> GetAllMonthlyReport(int id) //GetAll
+        {
+            // return await _context.Salaries.ToListAsync();
+            return await _context.Salaries.Include(u => u.UserProfile).Where(a => a.UserProfileId == id).ToListAsync();
+        }
 
         public async Task<IEnumerable<Salary>> GetById(Salary sal) //GetAll
         {
             // return await _context.Salaries.ToListAsync();
-            var x = _context.Salaries.Include(u => u.UserProfile).Where(a=> a.Year == sal.Year).Where(a => a.UserProfileId == sal.UserProfileId).ToListAsync();
+            var x = _context.Salaries.Include(u => u.UserProfile).Where(a => a.Year == sal.Year).Where(a => a.UserProfileId == sal.UserProfileId).ToListAsync();
             return await x;
         }
 
@@ -127,38 +132,46 @@ namespace StaffPortal.Services
                 Id = _context.Salaries.First(f => f.UserProfileId == c.Key.UserProfileId && f.Year == c.Key.Year).Id
 
 
-        }
+            }
             );
 
             return await x.ToListAsync();
 
 
-            
+
         }
 
         public async Task<IEnumerable<Salary>> GetUserYear(int id) //GetAll
         {
-
             // return await _context.Salaries.ToListAsync();
             var x = _context.Salaries.Include(u => u.UserProfile).GroupBy(b => new { b.Year, b.UserProfileId, b.UserProfile }).Select(c => new Salary
             {
-                YearAllow = (c.Sum(p => p.UserProfile.Grade.TotAllowance)),
                 Year = c.Key.Year,
                 UserProfileId = c.Key.UserProfileId,
                 UserProfile = c.Key.UserProfile,
+                YearAllow = (c.Sum(p => p.UserProfile.Grade.TotAllowance)),
                 YearDeduction = (c.Sum(p => p.UserProfile.Grade.TotDeduction)),
                 YearPay = (c.Sum(p => p.UserProfile.Grade.NetSalary)),
                 Id = _context.Salaries.First(f => f.UserProfileId == c.Key.UserProfileId && f.Year == c.Key.Year).Id
-
-
             }
             ).Where(i => i.UserProfileId == id);
-
             return await x.ToListAsync();
-
-
-
         }
+        public async Task<IEnumerable<Salary>> GetUserMonth(int id) //GetAll
+        {
+            var x = _context.Salaries.Include(u => u.UserProfile).GroupBy(b => new { b.Month, b.UserProfileId, /*b.UserProfile */}).Select(c => new Salary
+            {
+                Month = c.Key.Month,
+                UserProfileId = c.Key.UserProfileId,
+                //UserProfile = c.Key.UserProfile,
+                Id = _context.Salaries.First(f => f.UserProfileId == c.Key.UserProfileId && f.Month == c.Key.Month).Id
+            }
+            ).Where(i => i.UserProfileId == id);
+            return await x.ToListAsync();
+            // return await _context.Salaries.ToListAsync();
+        }
+
+
         public async Task<Salary> GetById(int Id) //GetById
         {
             var sal = await _context.Salaries.FindAsync(Id);
@@ -181,7 +194,28 @@ namespace StaffPortal.Services
             return false;
 
         }
-
+        /*public async Task<IEnumerable<Salary>> GetUserMonth(int id) //GetAll
+        {
+            var x = _context.Salaries.Include(u => u.UserProfile).GroupBy(b => new { b.Month, b.UserProfileId, /*b.UserProfile }).Select(c => new Salary
+            {
+                Month = c.Key.Month,
+                UserProfileId = c.Key.UserProfileId,
+                //UserProfile = c.Key.UserProfile,
+                Id = _context.Salaries.First(f => f.UserProfileId == c.Key.UserProfileId && f.Month == c.Key.Month).Id
+            }
+            ).Where(i => i.UserProfileId == id);
+            return await x.ToListAsync();
+            // return await _context.Salaries.ToListAsync();
+        }
+    */
 
     }
 }
+
+
+
+/* persons.GroupBy(
+p => p.PersonId, 
+  p => p.car,
+    (key, g) => new { PersonId = key, Cars = g.ToList() });*/
+// return await _context.Salaries.ToListAsync();

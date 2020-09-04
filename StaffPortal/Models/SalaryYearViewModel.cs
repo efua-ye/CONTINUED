@@ -6,6 +6,7 @@ using StaffPortal.Entities;
 namespace StaffPortal.Models
 {
     public class SalaryYearViewModel
+
     {
 
         public List<Salary> Sals { get; set; }

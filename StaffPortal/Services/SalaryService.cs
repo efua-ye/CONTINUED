@@ -102,8 +102,14 @@ namespace StaffPortal.Services
         public async Task<IEnumerable<Salary>> GetAll() //GetAll
         {
             // return await _context.Salaries.ToListAsync();
+            
             return await _context.Salaries.Include(u => u.UserProfile).ToListAsync();
         }
+
+        //public async Task<IEnumerable<Salary>> GetUserMonths(int id) //GetAll
+        //{
+        //    return await _context.Salaries.Include(u => u.UserProfile).Where(a => a.UserProfileId == id).ToListAsync();
+        //}
 
         public async Task<IEnumerable<Salary>> GetYearReport(Salary sal) //GetAll
         {

@@ -120,7 +120,7 @@ namespace StaffPortal.Controllers
             }
 
 
-            return RedirectToAction("UserError");
+            return RedirectToAction("UserError", "UserProfile");
 
 
 

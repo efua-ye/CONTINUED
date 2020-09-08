@@ -99,19 +99,14 @@ namespace StaffPortal.Services
 
         public int GetIdByEmail(string Email)
         {
-
             try
             {
                 var _user = _context.UserProfiles.First(u => u.Email == Email);
-
-
                 return _user.Id;
             }
             catch (Exception)
             { return 0; }
-
-
-        }
+         }
 
 
         //public async Task<IEnumerable<Local>> GetLocalByStateIdAsync(int id)

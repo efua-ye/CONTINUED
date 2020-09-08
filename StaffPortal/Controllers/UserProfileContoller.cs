@@ -79,7 +79,7 @@ namespace StaffPortal.Controllers
 
         }
         
-
+        /*
         [HttpGet]
         public async Task<IActionResult> SalaryReport(int id)
         {
@@ -119,9 +119,8 @@ namespace StaffPortal.Controllers
             {
                 return View(usersal);
             }
-
-
         }
+        */
         [HttpGet]
         public IActionResult UserError()
         {

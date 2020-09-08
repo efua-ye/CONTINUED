@@ -99,6 +99,9 @@ namespace StaffPortal.Controllers
 
 
         //}
+<<<<<<< HEAD
+        
+=======
         [HttpGet]
         public async Task<IActionResult> UserYear()
         {
@@ -125,8 +128,9 @@ namespace StaffPortal.Controllers
 
 
         }
+>>>>>>> 52466e7b508a31b6e1a8429e02feae69266f3c94
 
-        public async Task<IActionResult> Year()
+            public async Task<IActionResult> Year()
         {
             
 
@@ -147,7 +151,7 @@ namespace StaffPortal.Controllers
             var sal = await _salary.GetById(id);
             var userp = await _userProfile.GetById(sal.UserProfileId);
             var x = await _userManager.FindByEmailAsync(userp.Email);
-            var model = await _salary.GetYearReport(sal);
+            var model = await _salary.GetById(sal);
 
             var salaryYearVM = new SalaryYearViewModel
             {
@@ -374,6 +378,12 @@ namespace StaffPortal.Controllers
         {
             salary.CreatedBy = _userManager.GetUserName(User);
             salary.DateCreated = DateTime.Now;
+<<<<<<< HEAD
+            //var sam = salary.TransportPercent_;
+            //var nuel = salary.UserProfile.Transport;
+            //salary.Transport = salary.TransportPercent_ + 5000;
+=======
+>>>>>>> 52466e7b508a31b6e1a8429e02feae69266f3c94
             var createSalary = await _salary.AddAsync(salary);
 
             //if (createSalary)
@@ -469,6 +479,38 @@ namespace StaffPortal.Controllers
         }
 
 
-        //GIT, DON'T ANGER ME!!!!!!!!!!!!!!
+        [HttpGet]
+        public async Task<IActionResult> MonthlySalary(int id)
+        {
+            /*
+            var user = _userManager.GetUserName(User);
+            var x = await _userManager.FindByNameAsync(user);
+
+            var sal = _userProfile.GetIdByEmail(x.Email);
+
+            var usersal = await _userProfile.GetById(sal);
+            */
+
+            var sal = await _salary.GetById(id);
+            var userp = await _userProfile.GetById(sal.UserProfileId);
+            var x = await _userManager.FindByEmailAsync(userp.Email);
+            var sali = _userProfile.GetIdByEmail(x.Email);
+
+            //var usersal = await _userProfile.GetById(id);
+            // var model = await _salary.GetById(sal);
+
+
+
+            if (sal == null)
+            {
+                return RedirectToAction("UserError");
+            }
+            else
+            {
+                return View(sal);
+            }
+
+        }
+        //UserMonthlyReport
     }
 }

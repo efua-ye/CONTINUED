@@ -106,12 +106,16 @@ namespace StaffPortal.Services
             return await _context.Salaries.Include(u => u.UserProfile).ToListAsync();
         }
 
+<<<<<<< HEAD
         //public async Task<IEnumerable<Salary>> GetUserMonths(int id) //GetAll
         //{
         //    return await _context.Salaries.Include(u => u.UserProfile).Where(a => a.UserProfileId == id).ToListAsync();
         //}
 
         public async Task<IEnumerable<Salary>> GetYearReport(Salary sal) //GetAll
+=======
+        public async Task<IEnumerable<Salary>> GetById(Salary sal) //GetAll
+>>>>>>> f7a2fe6727b3c654461abdc9119f929e0095769d
         {
             // return await _context.Salaries.ToListAsync();
             var x = _context.Salaries.Include(u => u.UserProfile).Where(a=> a.Year == sal.Year).Where(a => a.UserProfileId == sal.UserProfileId).ToListAsync();

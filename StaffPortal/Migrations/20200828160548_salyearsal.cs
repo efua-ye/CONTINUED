@@ -2,7 +2,7 @@
 
 namespace StaffPortal.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class salyearsal : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

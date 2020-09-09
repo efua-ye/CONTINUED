@@ -3,6 +3,7 @@
     ViewData["Title"] = "Leave";
 }
 <!-- ============================================================== -->
+
 <div class="row page-titles">
     <div class="col-md-5 align-self-center">
         <h3 class="text-themecolor">Leave</h3>
@@ -22,17 +23,17 @@
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="StartDate"> From: </label>
-                        <input type="date" asp-for="StartDate" class="form-control" required="">
+                        <input type="date" asp-for="StartDate" id="datepicker1" class="form-control" required="">
                         <span asp-validation-for="StartDate" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="EndDate"> From: </label>
-                        <input type="date" asp-for="EndDate" class="form-control" required="">
+                        <input type="date" asp-for="EndDate" id="end" class="form-control" required="">
                         <span asp-validation-for="EndDate" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Reason">Reason</label>
-                        <input type="text" asp-for="Reason" class="form-control"  placeholder="Enter reason Code" required="">
+                        <input type="text" asp-for="Reason" class="form-control" placeholder="Enter reason Code" required="">
                         <span asp-validation-for="Reason" class="text-danger"></span>
                     </div>
 
@@ -43,3 +44,40 @@
         </div>
     </div>
 </div>
+
+
+
+<script>
+    //var dateToday = new Date();
+    //$(function () {
+    //    $("#datepicker1").datepicker({
+    //        changeMonth: true,
+    //        changeYear: true,
+    //        dateFormat: 'dd-mm-yy',
+    //        minDate: dateToday,
+    //        onClose: function (selected) {
+    //            if (selected.length <= 0) {
+                    
+    //                $("#end").datepicker('disable');
+    //            } else {
+    //                $("#end").datepicker('enable');
+    //            }
+    //            $("#end").datepicker("option", "minDate", selected);
+    //        }
+    //    });
+    //    $("#end").datepicker({
+    //        changeMonth: true,
+    //        changeYear: true,
+    //        dateFormat: 'dd-mm-yy',
+           
+    //        onClose: function (selected) {
+    //            if (selected.length <= 0) {
+                    
+    //                $("#datepicker1").datepicker('disable');
+    //            } else {
+    //                $("#datepicker1").datepicker('enable');
+    //            }
+    //            $("#datepicker1").datepicker("option", "maxDate", selected);
+    //        }
+    //    });
+    //});</script>

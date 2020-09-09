@@ -26,7 +26,7 @@ namespace StaffPortal.Services
         public async Task<bool> AddAsync(Leave leave) //AddAsync
         {
             //var existingCount = _context.Leaves.Count(g => g.Name == leave.Name && g.Code == leave.Code );
-            var existingCount = 0;
+            var existingCount = _context.Leaves.Count(g => g.UserProfileId == leave.UserProfileId && g.StartDate == leave.StartDate && g.EndDate == leave.EndDate);
             if (existingCount == 0)
             {
 
@@ -36,19 +36,30 @@ namespace StaffPortal.Services
                     await _context.AddAsync(leave);
 
                     await _context.SaveChangesAsync();
+                    return true;
                 }
 
                 catch (Exception)
                 {
                     return false;
                 }
-                return true;
+               
 
             }
             else
             {
                 return false;
             }
+        }
+
+        public int GetBusinessDays(DateTime startD, DateTime endD)
+        {
+            double calcBusinessDays =  1 + ((endD - startD).TotalDays * 5 - (startD.DayOfWeek - endD.DayOfWeek) * 2) / 7;
+
+            if (endD.DayOfWeek == DayOfWeek.Saturday) calcBusinessDays--;
+            if (startD.DayOfWeek == DayOfWeek.Sunday) calcBusinessDays--;
+
+            return Convert.ToInt32(calcBusinessDays);
         }
 
         public async Task<bool> Delete(int Id)//Delete
@@ -69,7 +80,7 @@ namespace StaffPortal.Services
         public async Task<IEnumerable<Leave>> GetAll() //GetAll
         {
 
-            return await _context.Leaves.ToListAsync();
+            return await _context.Leaves.Include(u => u.UserProfile).ToListAsync();
         }
 
         public async Task<Leave> GetById(int Id) //GetById

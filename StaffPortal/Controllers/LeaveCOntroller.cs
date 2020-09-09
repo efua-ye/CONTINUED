@@ -17,12 +17,14 @@ namespace StaffPortal.Controllers
     public class LeaveController : BaseController
     {
         private ILeave _leave;
+        private IUserProfile _userProfile;
 
         private readonly UserManager<ApplicationUser> _userManager;
-        public LeaveController(ILeave leave, UserManager<ApplicationUser> userManager)
+        public LeaveController(ILeave leave, IUserProfile userProfile, UserManager<ApplicationUser> userManager)
         {
             _leave = leave;
             _userManager = userManager;
+            _userProfile = userProfile;
         }
         
         public async Task<IActionResult> Index()
@@ -45,6 +47,15 @@ namespace StaffPortal.Controllers
         public async Task<IActionResult> Create(Leave leave)
         {
             leave.CreatedBy = _userManager.GetUserName(User);
+            
+            var x = await _userManager.FindByNameAsync(leave.CreatedBy);
+
+            leave.UserProfileId = _userProfile.GetIdByEmail(x.Email);
+            leave.Status = "Pending";
+            
+            leave.Days = _leave.GetBusinessDays(leave.StartDate, leave.EndDate);
+            //if (leave.EndDate.Date > leave.StartDate.Date )
+            //    Alert("Incorrect last day " + leave.EndDate, NotificationType.error);
 
             var createLeave = await _leave.AddAsync(leave);
 

@@ -9,6 +9,7 @@ namespace StaffPortal.Interface
     {
         void Add(Leave leave);
         Task<bool> AddAsync(Leave leave);
+        int GetBusinessDays(DateTime startD, DateTime endD);
         Task<bool> Update(Leave leave);
         Task<IEnumerable<Leave>> GetAll();
         Task<Leave> GetById(int Id);

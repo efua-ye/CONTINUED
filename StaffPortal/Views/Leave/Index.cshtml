@@ -1,0 +1,77 @@
+﻿@model IEnumerable<StaffPortal.Entities.Leave>
+@{
+    ViewData["Title"] = "Faculties";
+}
+<!-- ============================================================== -->
+
+<div class="row bg-title">
+    <div class="col-lg-12">
+        <h4 class="page-title">Leave</h4>
+        <ol class="breadcrumb">
+            <li><a href="#">Dashboard</a></li>
+            <li class="active">Leave</li>
+        </ol>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+
+        <div class="white-box">
+
+            <a asp-controller="Leave" asp-action="Create" class="btn float-right hidden-sm-down btn-success"><i class="mdi mdi-plus-circle"></i>New Leave</a>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Email</th>
+                            <th>StartDate</th>
+                            <th>EndDate</th>
+                            <th>NO of days</th>
+                            <th>Reason</th>
+                            <th>Status</th>
+                            <th>Created By</th>
+                            <th>Date Created</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var Leave in Model)
+                        {
+                        <tr>
+                            <td>@Leave.Id</td>
+                            <td>@Leave.UserProfile.FirstName  </td>
+                            <td>@Leave.UserProfile.LastName  </td>
+                            <td>@Leave.UserProfile.Email  </td>
+                            <td>@Leave.StartDate </td>
+
+                            <td>@Leave.EndDate </td>
+                            <td>@Leave.Days  </td>
+                            <td>@Leave.Reason </td>
+                            <td>@Leave.Status  </td>
+
+                            <td>@Leave.CreatedBy  </td>
+                            <td>@Leave.DateCreated    </td>
+
+                            <td>
+
+                            <td><a asp-action="Edit" asp-route-id="@Leave.Id" alt="Edit"><i class="ti-pencil" aria-hidden="true"></i></a> </td>
+                            <td><a onclick="return confirm('Are you sure you want to delete this record');" asp-action="Delete" asp-route-id="@Leave.Id"><i class="ti-trash" aria-hidden="true"></i></a> </td>
+
+                        </tr>
+
+
+                        }
+
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+    </div>

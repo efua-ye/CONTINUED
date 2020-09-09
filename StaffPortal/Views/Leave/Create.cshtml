@@ -1,0 +1,45 @@
+﻿@model StaffPortal.Entities.Leave
+@{
+    ViewData["Title"] = "Leave";
+}
+<!-- ============================================================== -->
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Leave</h3>
+    </div>
+    <!--   <div class="col-md-7 align-self-center">
+         <a href="https://wrappixel.com/templates/adminpro/" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Upgrade to Pro</a>
+      </div>-->
+</div>
+
+<div class="row">
+    <!-- column -->
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3>Leave</h3>
+            <div class="table-responsive">
+                <form asp-action="Create" method="post" class="mt-4">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="StartDate"> From: </label>
+                        <input type="date" asp-for="StartDate" class="form-control" required="">
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EndDate"> From: </label>
+                        <input type="date" asp-for="EndDate" class="form-control" required="">
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Reason">Reason</label>
+                        <input type="text" asp-for="Reason" class="form-control"  placeholder="Enter reason Code" required="">
+                        <span asp-validation-for="Reason" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-success mr-2">Submit</button>
+                    <a asp-action="Cancel" type="button" class="btn btn-dark">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

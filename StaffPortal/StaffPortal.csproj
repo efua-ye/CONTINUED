@@ -37,6 +37,7 @@
     <Folder Include="Views\Faculty\" />
     <Folder Include="wwwroot\sweetAlert\" />
     <Folder Include="Views\Account\" />
+    <Folder Include="Views\Leave\" />
   </ItemGroup>
 
   <ItemGroup>

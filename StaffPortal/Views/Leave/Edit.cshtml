@@ -1,0 +1,61 @@
+﻿@model StaffPortal.Entities.Leave
+@{
+    ViewData["Title"] = "Leave";
+}
+<!-- ============================================================== -->
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Leave</h3>
+    </div>
+    <!--   <div class="col-md-7 align-self-center">
+         <a href="https://wrappixel.com/templates/adminpro/" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Upgrade to Pro</a>
+      </div>-->
+</div>
+<div class="row">
+    <!-- column -->
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3>Leave</h3>
+
+            <div class="table-responsive">
+                <form asp-action="Edit" method="post" class="mt-4">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    @*<div class="form-group">
+                        <label asp-for="UserProfile.FirstName">First Name</label>
+                        <input type="text" asp-for="UserProfile.FirstName" class="form-control" readonly>
+                        <span asp-validation-for="UserProfile.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserProfile.LastName">Last Name</label>
+                        <input type="text" asp-for="UserProfile.LastName" class="form-control" readonly>
+                        <span asp-validation-for="UserProfile.LastName" class="text-danger"></span>
+                    </div>*@
+                    <div class="form-group">
+                        <label asp-for="Reason">Reason</label>
+                        <input type="text" asp-for="Reason" class="form-control" readonly>
+                        <span asp-validation-for="Reason" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Days">Duration</label>
+                        <input type="text" asp-for="Days" class="form-control" placeholder="" required="">
+                        <span asp-validation-for="Days" class="text-danger"></span>
+                    </div>
+                  
+                    <div>
+                        <label>
+                            <input type="radio" asp-for="Status" value="APPROVED"> APPROVED
+                            <input type="radio" asp-for="Status" value="DECLINED"> DECLINED
+                        </label>
+                        
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-success mr-2">Submit</button>
+                    <a asp-action="Cancel" type="button" class="btn btn-dark">Cancel</a>
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

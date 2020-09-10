@@ -97,7 +97,7 @@ namespace StaffPortal.Services
             {
                 //leave_.Name = leave.Name;
                 //leave_.Code = leave.Code;
-
+                leave_.Status = leave.Status;
                await  _context.SaveChangesAsync();
                 return true;
             }

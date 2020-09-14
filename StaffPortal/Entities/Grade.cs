@@ -65,6 +65,9 @@ namespace StaffPortal.Entities
         public double MedicalPercent { get; set; }
 
         //public string MedicalItemType { get; set; }
+        public double Leave { get; set; }
+
+        public double LeavePercent { get; set; }
 
         public double NetSalary { get; set; }
 

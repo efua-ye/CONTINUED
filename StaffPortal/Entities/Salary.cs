@@ -27,11 +27,12 @@ namespace StaffPortal.Entities
         public double YearAllow { get; set; }
         public double YearDeduction { get; set; }
         public double YearPay { get; set; }
-        //public double TransportPercent_ { get; set; }
-        //public double Transport  { get; set; }
-        //public double Allowance { get; set; }
-        // public double  { get; set; }
+        public Leave Leave { get; set; }
+        public int LeaveId { get; set; }                                    //public double TransportPercent_ { get; set; }
+                                                                                   //public double Transport  { get; set; }
+                                                                                   //public double Allowance { get; set; }
+                                                                                   // public double  { get; set; }
 
-       
+
     }
 }

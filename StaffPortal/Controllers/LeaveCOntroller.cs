@@ -35,6 +35,18 @@ namespace StaffPortal.Controllers
                 return View(model);
             return View();
         }
+
+        public async Task<IActionResult> PersonalIndex()
+        {
+            var user = _userManager.GetUserName(User);
+            var x = await _userManager.FindByNameAsync(user);
+            var model = await _leave.GetPersonalAll(x.Email);
+
+            if (model != null)
+                return View(model);
+            return View();
+        }
+
         [HttpGet]
         public IActionResult Create()
         {

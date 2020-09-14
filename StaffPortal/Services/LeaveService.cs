@@ -82,7 +82,12 @@ namespace StaffPortal.Services
 
             return await _context.Leaves.Include(u => u.UserProfile).ToListAsync();
         }
+        public async Task<IEnumerable<Leave>> GetPersonalAll(string email) //GetPersonalAll
+        {
 
+            return await _context.Leaves.Include(u => u.UserProfile).Where(u => u.UserProfile.Email == email).ToListAsync();
+        }
+       
         public async Task<Leave> GetById(int Id) //GetById
         {
             var leave = await _context.Leaves.FindAsync(Id);

@@ -12,6 +12,7 @@ namespace StaffPortal.Interface
         int GetBusinessDays(DateTime startD, DateTime endD);
         Task<bool> Update(Leave leave);
         Task<IEnumerable<Leave>> GetAll();
+        Task<IEnumerable<Leave>> GetPersonalAll(string email);
         Task<Leave> GetById(int Id);
         Task<bool> Delete(int Id);
     }

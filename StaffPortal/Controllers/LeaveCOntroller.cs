@@ -80,43 +80,40 @@ namespace StaffPortal.Controllers
             {
                 Alert("Duplicate Leave cannot created!", NotificationType.error);
             }
-
-
             return View();
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Edit(int id)
-        //{
-        //    var editLeave = await _leave.GetById(id);
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var editLeave = await _leave.GetById(id);
 
-        //    if (editLeave == null)
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(editLeave);
-        //}
+            if (editLeave == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(editLeave);
+        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Edit(Leave leave)
-        //{
-        //    //var editLeave = await _leave.GetById(id);
-        //    var editLeave = await _leave.Update(leave);
+        [HttpPost]
+        public async Task<IActionResult> Edit(Leave leave)
+        {
+            //var editLeave = await _leave.GetById(id);
+            var editLeave = await _leave.Update(leave);
 
 
-        //    if (editLeave && ModelState.IsValid)
-        //    {
-        //        //    editLeave.Name = leave.Name;
-        //        //    context.SaveChanges();
-        //        Alert("Leave edited successfully!", NotificationType.success);
-        //        return RedirectToAction("Index");
-        //        //return RedirectToAction("Details", new { id = editLeave.Id });
-        //    }
-        //    Alert("Leave not edited!", NotificationType.warning);
-        //    return View();
-        //}
+            if (editLeave && ModelState.IsValid)
+            {
+                //    editLeave.Name = leave.Name;
+                //    context.SaveChanges();
+                Alert("Leave edited successfully!", NotificationType.success);
+                return RedirectToAction("Index");
+                //return RedirectToAction("Details", new { id = editLeave.Id });
+            }
+            Alert("Leave not edited!", NotificationType.warning);
+            return View();
+        }
 
-        //[HttpPost]
 
         public async Task<IActionResult> Delete(int id)
         {

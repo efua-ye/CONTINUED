@@ -28,9 +28,9 @@ namespace StaffPortal.Entities
             set { dateCreated = value; }
 
         }
-        
-        
+       // public string isSelected { get; set; }
 
-       
+
+
     }
 }

@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200909112834_leave.cs" />
+    <Compile Remove="Migrations\20200909112834_leave.Designer.cs" />
+    <Compile Remove="Migrations\20200910130155__Leave_.cs" />
+    <Compile Remove="Migrations\20200910130155__Leave_.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     
     <!-- <PackageReference Include="Microsoft.AspNetCore.App" /> -->
 
@@ -37,13 +44,15 @@
     <Folder Include="Views\Faculty\" />
     <Folder Include="wwwroot\sweetAlert\" />
     <Folder Include="Views\Account\" />
-    <Folder Include="Views\Leave\" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Remove="Views\UserProfile\SalaryReport %28copy%29.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="Views\Leave\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\News\Create.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

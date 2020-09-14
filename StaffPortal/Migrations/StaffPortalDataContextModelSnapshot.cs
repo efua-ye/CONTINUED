@@ -222,6 +222,8 @@ namespace StaffPortal.Migrations
 
                     b.HasIndex("FacultyId");
 
+                    b.HasIndex("DeptCode", "DeptName");
+
                     b.ToTable("Departments");
                 });
 
@@ -240,6 +242,10 @@ namespace StaffPortal.Migrations
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name", "Code")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL AND [Code] IS NOT NULL");
 
                     b.ToTable("Faculties");
                 });
@@ -308,35 +314,6 @@ namespace StaffPortal.Migrations
                     b.HasIndex("NewStateId");
 
                     b.ToTable("LGAs");
-                });
-
-            modelBuilder.Entity("StaffPortal.Entities.Leave", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedBy");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<int>("Days");
-
-                    b.Property<DateTime>("EndDate");
-
-                    b.Property<string>("Reason");
-
-                    b.Property<DateTime>("StartDate");
-
-                    b.Property<string>("Status");
-
-                    b.Property<int>("UserProfileId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserProfileId");
-
-                    b.ToTable("Leaves");
                 });
 
             modelBuilder.Entity("StaffPortal.Entities.NewState", b =>
@@ -538,14 +515,6 @@ namespace StaffPortal.Migrations
                     b.HasOne("StaffPortal.Entities.NewState", "NewState")
                         .WithMany("LGA")
                         .HasForeignKey("NewStateId");
-                });
-
-            modelBuilder.Entity("StaffPortal.Entities.Leave", b =>
-                {
-                    b.HasOne("StaffPortal.Entities.UserProfile", "UserProfile")
-                        .WithMany()
-                        .HasForeignKey("UserProfileId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("StaffPortal.Entities.Salary", b =>

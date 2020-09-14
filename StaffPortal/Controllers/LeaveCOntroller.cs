@@ -64,22 +64,39 @@ namespace StaffPortal.Controllers
 
             leave.UserProfileId = _userProfile.GetIdByEmail(x.Email);
             leave.Status = "Pending";
+            if(leave.StartDate <= DateTime.UtcNow)
+            {
+                Alert("Invalid start date!", NotificationType.error);
+                return View();
+            }
             
             leave.Days = _leave.GetBusinessDays(leave.StartDate, leave.EndDate);
-            //if (leave.EndDate.Date > leave.StartDate.Date )
-            //    Alert("Incorrect last day " + leave.EndDate, NotificationType.error);
-
-            var createLeave = await _leave.AddAsync(leave);
-
-            if (createLeave)
+            if ((leave.Days > 0 && leave.Days <= 30) || (leave.Days >= 60 && leave.Reason == "Maternity"))
             {
-                Alert("Leave created successfully.", NotificationType.success);
-                return RedirectToAction("Index");
+               
+                var createLeave = await _leave.AddAsync(leave);
+
+                if (createLeave)
+                {
+                    Alert("Leave created successfully.", NotificationType.success);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    Alert("Duplicate Leave cannot created!", NotificationType.error);
+                }
             }
-            else
+           if(leave.Days <= 0)
             {
-                Alert("Duplicate Leave cannot created!", NotificationType.error);
+                Alert("Invalid start and end date", NotificationType.error);
             }
+           else if(leave.Days > 30)
+            {
+                Alert("Leave days exceeded", NotificationType.error);
+            }
+        
+          
+            
             return View();
         }
 

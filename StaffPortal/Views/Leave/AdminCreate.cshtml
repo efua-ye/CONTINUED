@@ -3,13 +3,15 @@
     ViewData["Title"] = "Leave";
 }
 <!-- ============================================================== -->
-    <script type="text/javascript">function CheckReason(val) {
-            var element = document.getElementById('reason');
-            if (val == 'Choose Option' || val == 'others')
-                element.style.display = 'block';
-            else
-                element.style.display = 'none';
-        }</script>
+<script type="text/javascript">function CheckReason(val) {
+        var element = document.getElementById('reason');
+    if (val == 'Choose Option' || val == 'others')
+            element.style.display = 'block';
+        else
+            element.style.display = 'none';
+    }</script>
+
+
 <div class="row page-titles">
     <div class="col-md-5 align-self-center">
         <h3 class="text-themecolor">Leave</h3>
@@ -19,6 +21,7 @@
       </div>-->
 </div>
 
+
 <div class="row">
     <!-- column -->
     <div class="col-sm-12">
@@ -27,39 +30,41 @@
             <div class="table-responsive">
                 <form asp-action="Create" method="post" class="mt-4">
                     <div asp-validation-summary="All" class="text-danger"></div>
-                    
-                        <div class="form-group col-md-4">
-                            <label asp-for="StartDate"> From: </label>
-                            <input type="date" asp-for="StartDate" id="datepicker1" class="form-control" required="">
-                            <span asp-validation-for="StartDate" class="text-danger"></span>
-                        </div>
-                        <br />
-                        <div class="form-group col-lg-4">
-                            <label asp-for="EndDate"> To: </label>
-                            <input type="date" asp-for="EndDate" id="end" class="form-control" required="">
-                            <span asp-validation-for="EndDate" class="text-danger"></span>
-                        </div>
-                        <br />
-                        <div class="form-group col-lg-4">
-                            <label asp-for="Reason">Reason</label>
 
+                    <div class="form-group mb-4">
+                        <label for="exampleFormControlSelect1">Employee</label>
+                        <select class="form-control" id="exampleFormControlSelect1" asp-for="UserProfileId" asp-items="@ViewBag.user">
+                            <optionhidden disabled selected>Choose Option</optionhidden>
+                        </select>
+                    </div><br />
+                    <div class="form-group">
+                        <label asp-for="StartDate"> From: </label>
+                        <input type="date" asp-for="StartDate" id="datepicker1" class="form-control" required="">
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EndDate"> To: </label>
+                        <input type="date" asp-for="EndDate" id="end" class="form-control" required="">
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Reason">Reason</label>
 
+                        
                             <select class="form-control" asp-for="Reason" name="reason" onchange='CheckReason(this.value);'>
                                 <option hidden disabled selected>Choose Option</option>
-
+                                
                                 <option value="Health">Health</option>
                                 <option value="Maternity">Maternity</option>
                                 <option value="others">others</option>
 
                             </select>
-                            <br />
-                            <input type="text" asp-for="Reason" name="Reason" id="reason" style='display:none;' placeholder="Enter Other Reason" />
+                            <input type="text" asp-for="Reason" name="reason" id="reason" style='display:none;' />
                             <span asp-validation-for="Reason" class="text-danger"></span>
                         </div>
-                    
-                    <br />
-                    <button type="submit" class="btn btn-success mr-2">Submit</button>
-                    <a asp-action="Cancel" type="button" class="btn btn-dark">Cancel</a>
+
+                        <button type="submit" class="btn btn-success mr-2">Submit</button>
+                        <a asp-action="Cancel" type="button" class="btn btn-dark">Cancel</a>
                 </form>
             </div>
         </div>
@@ -68,8 +73,7 @@
 
 
 
-<script>
-    //var dateToday = new Date();
+<script>//var dateToday = new Date();
     //$(function () {
     //    $("#datepicker1").datepicker({
     //        changeMonth: true,
@@ -78,7 +82,7 @@
     //        minDate: dateToday,
     //        onClose: function (selected) {
     //            if (selected.length <= 0) {
-                    
+
     //                $("#end").datepicker('disable');
     //            } else {
     //                $("#end").datepicker('enable');
@@ -90,10 +94,10 @@
     //        changeMonth: true,
     //        changeYear: true,
     //        dateFormat: 'dd-mm-yy',
-           
+
     //        onClose: function (selected) {
     //            if (selected.length <= 0) {
-                    
+
     //                $("#datepicker1").datepicker('disable');
     //            } else {
     //                $("#datepicker1").datepicker('enable');
